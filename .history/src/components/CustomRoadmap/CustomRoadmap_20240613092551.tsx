@@ -5,7 +5,7 @@ import { getUrlParams } from '../../lib/browser';
 import { type AppError, type FetchError, httpGet } from '../../lib/http';
 import { RoadmapHeader } from './RoadmapHeader';
 import { TopicDetail } from '../TopicDetail/TopicDetail';
-// import type { RoadmapDocument } from './CreateRoadmap/CreateRoadmapModal';    // 自定义路径图 自己创建
+import type { RoadmapDocument } from './CreateRoadmap/CreateRoadmapModal';
 import { currentRoadmap } from '../../stores/roadmap';
 import { RestrictedPage } from './RestrictedPage';
 import { FlowRoadmapRenderer } from './FlowRoadmapRenderer';
@@ -48,12 +48,12 @@ export type CreatorType = {
   avatar: string;
 };
 
-// 结合了 RoadmapDocument路线图文档 和其他属性
-// export type GetRoadmapResponse = RoadmapDocument & {
-//   canManage: boolean;
-//   creator?: CreatorType;
-//   team?: CreatorType;
-// };
+// 结合了 RoadmapDocument 和其他属性
+export type GetRoadmapResponse = RoadmapDocument & {
+  canManage: boolean;
+  creator?: CreatorType;
+  // team?: CreatorType;
+};
 
 // 用于移除页面上的加载器元素
 export function hideRoadmapLoader() {
