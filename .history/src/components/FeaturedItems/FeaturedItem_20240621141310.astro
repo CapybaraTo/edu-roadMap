@@ -1,0 +1,35 @@
+---
+// 路线图标签 单个
+import { MarkFavorite } from "./MarkFavorite"; // 标记收藏
+export interface FeaturedItemType {
+  url: string;
+  text: string;
+  allowBookmark?: boolean;
+}
+
+export interface Props extends FeaturedItemType {}
+
+const { text, url, allowBookmark = true } = Astro.props;
+---
+
+<a href={url}>
+  <span class="relative z-20 text-slate-400">
+    {text}
+  </span>
+
+  {
+    allowBookmark && (
+      <MarkFavorite
+        resourceId={url.split("/").pop()!}
+        resourceType={
+          url.includes("best-practices") ? "best-practice" : "roadmap"
+        }
+        client:only="react"
+      />
+    )
+  }
+  <span
+    data-progress
+    class="absolute bottom-0 left-0 top-0 z-10 w-0 bg-[#172a3a] transition-[width] duration-300"
+  ></span>
+</a>
