@@ -37,7 +37,6 @@ export function EmailLoginForm(props: EmailLoginFormProps) {
     if (response?.token) {
       setAuthToken(response.token);
       window.location.reload();
-
       return;
     }
 
@@ -65,7 +64,7 @@ export function EmailLoginForm(props: EmailLoginFormProps) {
         autoComplete="email"
         required
         className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-        placeholder="Email Address"
+        placeholder="邮箱"
         value={email}
         onInput={(e) => setEmail(String((e.target as any).value))}
       />
@@ -78,7 +77,7 @@ export function EmailLoginForm(props: EmailLoginFormProps) {
         autoComplete="current-password"
         required
         className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-        placeholder="Password"
+        placeholder="密码"
         value={password}
         onInput={(e) => setPassword(String((e.target as any).value))}
       />
@@ -88,7 +87,7 @@ export function EmailLoginForm(props: EmailLoginFormProps) {
           href="/forgot-password"
           className="text-blue-800 hover:text-blue-600"
         >
-          Reset your password?
+          忘记密码?
         </a>
       </p>
 
@@ -101,7 +100,7 @@ export function EmailLoginForm(props: EmailLoginFormProps) {
         disabled={isLoading || isDisabled}
         className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
       >
-        {isLoading ? 'Please wait...' : 'Continue'}
+        {isLoading ? '请稍等...' : '继续'}
       </button>
     </form>
   );

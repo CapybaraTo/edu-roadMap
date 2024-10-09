@@ -1,0 +1,42 @@
+---
+// 以某种方式渲染资源（如技术路线图或最佳实践）的SVG图像
+import Loader from "../Loader.astro"; //  正在加载组件
+import "./FrameRenderer.css"; // 渲染样式  TODODIY
+import { ProgressNudge } from "./ProgressNudge.tsx"; // 进展提示组件
+
+//
+export interface Props {
+  // resourceType: "roadmap" | "best-practice"; //
+  resourceType: "roadmap";
+  resourceId: string;
+  dimensions?: {
+    width: number;
+    height: number;
+  };
+}
+
+// .解构Astro组件属性
+const { resourceId, resourceType, dimensions = null } = Astro.props;
+---
+
+<!-- 渲染容器div --><!-- 渲染一个div容器，其ID为resource-svg-wrap --><!-- 根据dimensions的值设置CSS自定义属性--aspect-ratio，这可能用于控制内部SVG的宽高比 --><!-- 在容器内部，渲染一个带有Loader组件的div，当资源正在加载时显示加载动画 --><!-- ProgressNudge组件来显示进度提示 -->
+<div
+  id="resource-svg-wrap"
+  style={dimensions
+    ? `--aspect-ratio:${dimensions.width}/${dimensions.height}`
+    : null}
+  data-resource-type={resourceType}
+  data-resource-id={resourceId}
+>
+  <div id="resource-loader">
+    <Loader />
+  </div>
+</div>
+
+<ProgressNudge
+  resourceId={resourceId}
+  resourceType={resourceType}
+  client:only="react"
+/>
+
+<script src="./renderer.ts"></script>

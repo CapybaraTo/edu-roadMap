@@ -1,0 +1,56 @@
+---
+import { RoadmapTitleQuestion } from "./RoadmapTitleQuestion.tsx";
+import ResourceProgressStats from "./ResourceProgressStats.astro";
+
+export interface Props {
+  roadmapId: string; // roadmapId必需属性
+  tnsBannerLink?: string;
+  titleQuestion?: string;
+  titleAnswer?: string;
+}
+
+const {
+  roadmapId,
+  titleQuestion = "",
+  titleAnswer = "",
+  tnsBannerLink,
+} = Astro.props;
+const hasTitleQuestion = titleQuestion && titleAnswer;
+const hasTnsBanner = !!tnsBannerLink;
+---
+
+<!-- 条件渲染和动态类名来根据不同的属性值显示不同的内容 -->
+<div
+  class:list={[
+    "mb-0 mt-4 rounded-md border-0 bg-white sm:mt-7 sm:border",
+    ...(hasTnsBanner
+      ? [
+          {
+            "sm:-mb-[110px]": hasTitleQuestion,
+            "sm:-mb-[81px]": !hasTitleQuestion,
+          },
+        ]
+      : [
+          {
+            "sm:-mb-[88px]": hasTitleQuestion,
+            "sm:-mb-[65px]": !hasTitleQuestion,
+          },
+        ]),
+  ]}
+>
+  <ResourceProgressStats
+    resourceId={roadmapId}
+    resourceType="roadmap"
+    hasSecondaryBanner={Boolean(hasTitleQuestion)}
+  />
+
+  {
+    hasTitleQuestion && (
+      <RoadmapTitleQuestion
+        client:load
+        question={titleQuestion}
+        answer={titleAnswer}
+      />
+    )
+  }
+</div>

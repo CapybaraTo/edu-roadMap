@@ -2,7 +2,7 @@
  * @Author: capybarato 1023536640@qq.com
  * @Date: 2024-07-18 15:36:26
  * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-07-18 15:37:08
+ * @LastEditTime: 2024-10-04 11:10:03
  * @FilePath: \roadMapPro\src\components\Authenticator\authenticator.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -48,14 +48,14 @@ function handleGuest() {
     '/account/road-card',
     '/account/friends',
     '/account',
-    '/team',
-    '/team/progress',
-    '/team/activity',
-    '/team/roadmaps',
-    '/team/new',
-    '/team/members',
-    '/team/member',
-    '/team/settings',
+    // '/team',
+    // '/team/progress',
+    // '/team/activity',
+    // '/team/roadmaps',
+    // '/team/new',
+    // '/team/members',
+    // '/team/member',
+    // '/team/settings',
   ];
 
   showHideAuthElements('hide');

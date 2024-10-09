@@ -2,7 +2,7 @@
  * @Author: capybarato 1023536640@qq.com
  * @Date: 2024-07-18 16:05:20
  * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-07-18 16:53:33
+ * @LastEditTime: 2024-10-08 19:30:02
  * @FilePath: \roadMapPro\src\lib\roadmap.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -22,8 +22,8 @@ export function resourceTitleFromId(id: string): string {
 }
 
 // 允许的路线图渲染器
-export type AllowedRoadmapRenderer = 'balsamiq' | 'editor';
-
+// export type AllowedRoadmapRenderer = 'balsamiq' | 'editor';
+export type AllowedRoadmapRenderer = 'balsamiq';
 // 接口定义了路线图文件的元数据
 export interface RoadmapFrontmatter {
   pdfUrl: string;  // PDF链接

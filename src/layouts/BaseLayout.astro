@@ -1,6 +1,6 @@
 ---
-// import Analytics from "../components/Analytics/Analytics.astro";   // 网页数据分析与跟踪
-// import LoginPopup from "../components/AuthenticationFlow/LoginPopup.astro"; // 登录弹窗组件
+import Analytics from "../components/Analytics/Analytics.astro"; // 网页数据分析与跟踪
+import LoginPopup from "../components/AuthenticationFlow/LoginPopup.astro"; // 登录弹窗组件
 import Authenticator from "../components/Authenticator/Authenticator.astro"; // 用户认证组件
 import { CommandMenu } from "../components/CommandMenu/CommandMenu.tsx"; // 命令菜单组件  搜索组件
 import Footer from "../components/Footer.astro"; // 页脚组件
@@ -37,7 +37,7 @@ const {
   title = siteConfig.title,
   briefTitle,
   description = siteConfig.description,
-  ogImageUrl = "https://roadmap.sh/images/og-img.png", // 一个roadmap介绍的图
+  ogImageUrl = "https://localhost:4321/images/og-img.png", // 一个roadmap介绍的图
   keywords = siteConfig.keywords,
   noIndex = false,
   permalink = "",
@@ -52,19 +52,19 @@ const {
 // 删除尾部斜线，将页面视为规范页面
 // TODO
 // const currentPageAbsoluteUrl = `https://roadmap.sh${permalink}`; // 当前页面的绝对URL
-const currentPageAbsoluteUrl = `https://localhost${permalink}`;
+const currentPageAbsoluteUrl = `https://localhost:4321${permalink}`;
 const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，优先使用给定的规范URL，如果没有则使用当前页面的URL。
 // commitUrl: GitHub提交URL，用于显示页面内容的最后提交版本。
-// const commitUrl = `https://github.com/kamranahmedse/developer-roadmap/commit/${
-//   import.meta.env.GITHUB_SHA
-// }`;
+const commitUrl = `https://github.com/CapybaraTo/edu-roadMap/commit/${
+  import.meta.env.GITHUB_SHA
+}`;
 
 // e.g. frontend:react or best-practices:frontend-performance
 // 用于生成Google Analytics的页面标识符
-// const gaPageIdentifier = Astro.url.pathname
-//   .replace(/^\//, "")
-//   .replace(/\/$/, "")
-//   .replace(/\//g, ":");
+const gaPageIdentifier = Astro.url.pathname
+  .replace(/^\//, "")
+  .replace(/\/$/, "")
+  .replace(/\//g, ":");
 ---
 
 <!doctype html>
@@ -72,10 +72,10 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
   <head>
     <meta charset="UTF-8" />
     <meta name="generator" content={Astro.generator} />
-    <!-- <meta name="commit" content={commitUrl} /> -->
+    <meta name="commit" content={commitUrl} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Kamran Ahmed" />
+    <meta name="author" content="GJJ" />
     <meta name="keywords" content={keywords.join(", ")} />
     {
       redirectUrl && (
@@ -96,10 +96,10 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image"
-      content={ogImageUrl || "https://roadmap.sh/images/og-img.png"}
+      content={ogImageUrl || "https://localhost:4321/images/og-img.png"}
     />
-    <meta property="og:image:alt" content="roadmap.sh" />
-    <meta property="og:site_name" content="roadmap.sh" />
+    <meta property="og:image:alt" content="localhost:4321" />
+    <meta property="og:site_name" content="localhost:4321" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -116,11 +116,11 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
     <meta name="apple-mobile-web-app-title" content="roadmap.sh" />
     <meta name="application-name" content="roadmap.sh" />
 
-    <link
+    <!-- <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="/manifest/apple-touch-icon.png"
-    />
+    /> -->
     <meta name="msapplication-TileColor" content="#101010" />
     <meta name="theme-color" content="#848a9a" />
 
@@ -145,8 +145,8 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
 
     <link rel="icon" href="/manifest/favicon.ico" type="image/x-icon" />
 
-    <!-- <link rel="preconnect" href="https://www.google-analytics.com/" />
-    <link rel="preconnect" href="https://api.roadmap.sh/" /> -->
+    <link rel="preconnect" href="https://www.google-analytics.com/" />
+    <!-- <link rel="preconnect" href="https://api.roadmap.sh/" /> -->
 
     <!-- 组件插槽 -->
     <slot name="after-header" />
@@ -179,9 +179,9 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
     <Authenticator />
 
     <!--  登录弹窗组件-->
-    <!-- <slot name="login-popup">
+    <slot name="login-popup">
       <LoginPopup />
-    </slot> -->
+    </slot>
 
     <!-- 通知组件 -->
     <Toaster client:only="react" />
@@ -196,7 +196,8 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，�
 
     <slot name="after-footer" />
 
-    <!-- <Analytics /> -->
+    <!-- 页面流量分析组件 -->
+    <Analytics />
     <!-- <PageVisit
       resourceId={resourceId}
       resourceType={resourceType}

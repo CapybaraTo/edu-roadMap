@@ -2,7 +2,7 @@
  * @Author: capybarato 1023536640@qq.com
  * @Date: 2024-06-11 10:52:27
  * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-06-11 11:18:01
+ * @LastEditTime: 2024-10-04 11:40:55
  * @FilePath: \roadMapPro\src\lib\jwt.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,6 +15,7 @@ export const TOKEN_COOKIE_NAME = '__roadmapsh_jt__';
 export type TokenPayload = {
   id: string;
   email: string;
+  username:string;
   name: string;
   avatar: string;
   onboardingStatus?: AllowedOnboardingStatus;
@@ -50,7 +51,8 @@ export function setAuthToken(token: string) {
     expires: 30,
     sameSite: 'lax',
     secure: true,
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
   });
   removeAIReferralCode();
 }
@@ -59,7 +61,10 @@ export function setAuthToken(token: string) {
 export function removeAuthToken() {
   Cookies.remove(TOKEN_COOKIE_NAME, {
     path: '/',
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
+
+    
   });
 }
 
@@ -74,7 +79,9 @@ export function visitAIRoadmap(roadmapId: string) {
     expires: 1 / 24, // 1 hour
     sameSite: 'lax',
     secure: !import.meta.env.DEV,
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
+
   });
 }
 
@@ -82,7 +89,9 @@ export function visitAIRoadmap(roadmapId: string) {
 export function deleteOpenAIKey() {
   Cookies.remove('oak', {
     path: '/',
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
+
   });
 }
 
@@ -93,7 +102,8 @@ export function saveOpenAIKey(apiKey: string) {
     expires: 365,
     sameSite: 'lax',
     secure: true,
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
   });
 }
 
@@ -116,7 +126,8 @@ export function setAIReferralCode(code: string) {
     expires: 365,
     sameSite: 'lax',
     secure: true,
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
   });
 }
 
@@ -124,7 +135,8 @@ export function setAIReferralCode(code: string) {
 export function removeAIReferralCode() {
   Cookies.remove(AI_REFERRAL_COOKIE_NAME, {
     path: '/',
-    domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    // domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
+    domain: import.meta.env.DEV ? 'localhost' : 'localhost',
   });
 }
 

@@ -6,7 +6,7 @@ import { getUser, isLoggedIn } from '../../lib/jwt.ts';    // token和cookies   
 import { AccountDropdownList } from './AccountDropdownList.tsx';
 import { useOutsideClick } from '../../hooks/use-outside-click.ts';     // 点击外部空白关闭下拉菜单
 // import { OnboardingModal } from './OnboardingModal.tsx';    // 新人任务  入门引导
-// import { httpGet } from '../../lib/http.ts';   // 发送 HTTP GET 请求
+import { httpGet } from '../../lib/http.ts';   // 发送 HTTP GET 请求
 import { useToast } from '../../hooks/use-toast.ts';    // 用于显示通知消息
 import type { UserDocument } from '../../api/user.ts';
 // import { NotificationIndicator } from './NotificationIndicator.tsx';     // 提示器
@@ -106,37 +106,7 @@ export function AccountDropdown() {
 
   return (
     <>
-      {/* {shouldShowOnboardingStatus && !isOnboardingModalOpen && (
-        <OnboardingNudge
-          onStartOnboarding={() => {
-            loadOnboardingConfig().then(() => {
-              setIsOnboardingModalOpen(true);
-            });
-          }}
-        />
-      )} */}
-
       <div className="relative z-[90] animate-fade-in">
-        {/* {isOnboardingModalOpen && onboardingConfig && (
-          <OnboardingModal
-            onboardingConfig={onboardingConfig}
-            onClose={() => {
-              setIsOnboardingModalOpen(false);
-            }}
-            onIgnoreTask={(taskId, status) => {
-              loadOnboardingConfig().finally(() => {});
-            }}
-          />
-        )} */}
-        {/* {isCreatingRoadmap && (
-          <CreateRoadmapModal
-            onClose={() => {
-              setIsCreatingRoadmap(false);
-            }}
-          />
-        )} */}
-
-        {/* 我的账号按钮 在导航栏 */}
         <button
           className="relative flex h-8 w-40 items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 px-4 py-2 text-sm font-medium text-white hover:from-purple-500 hover:to-purple-600"
           onClick={() => {

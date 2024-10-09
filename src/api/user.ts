@@ -28,6 +28,7 @@ export interface UserDocument {
   _id?: string;   // 可选属性  带问号的是可选
   name: string;   // 必填属性
   email: string;
+  username:string;   // 替代email  username
   avatar?: string;   //用户头像url
   password: string;
   isEnabled: boolean;//用户账户是否启用
@@ -50,7 +51,7 @@ export interface UserDocument {
     twitter?: string;
     website?: string;
   };
-  username?: string;
+  // username?: string;
   profileVisibility: AllowedProfileVisibility;    // 限定个人资料的可见性
   publicConfig?: {   // 用户的公共配置信息
     isAvailableForHire: boolean;
