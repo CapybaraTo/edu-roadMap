@@ -37,15 +37,18 @@ export function UserLoginForm(props: UserLoginFormProps) {
     setIsLoading(true);
     setIsDisabled?.(true);
     setError('');
-    // console.log(values);
-    const username= form.getFieldValue("userName");
+    console.log(values);
+    const phone= form.getFieldValue("phone");
     const password = form.getFieldValue("password");
+    console.log(phone)
+    console.log(password)
     // 发送post请求，预期返回token
+    // console.log(`${import.meta.env.PUBLIC_API_URL}/user/login`)
     console.log(`${import.meta.env.PUBLIC_API_URL}`)
     const { response, error } = await httpPost<{token: string}>(
       `${import.meta.env.PUBLIC_API_URL}/user/login`,
       {
-        username,
+        phone,
         password
       },
     );
@@ -54,7 +57,7 @@ export function UserLoginForm(props: UserLoginFormProps) {
     console.log(response)
     if (response?.token) {
       console.log(response.token);
-      // console.log(typeof response.token);
+      console.log(typeof response.token);
       setAuthToken(response.token);
       window.location.reload();
       return;

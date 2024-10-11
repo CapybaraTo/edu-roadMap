@@ -2,7 +2,7 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
-import { formatActivityDate, formatMonthDate } from '../../lib/date';
+import { formatActivityDate, formatMonthDate } from '../../lib/date.ts';
 import type { UserActivityCount } from '../../api/user';
 import dayjs from 'dayjs';
 

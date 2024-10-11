@@ -2,7 +2,7 @@
  * @Author: capybarato 1023536640@qq.com
  * @Date: 2024-06-11 10:52:27
  * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-10-04 11:40:55
+ * @LastEditTime: 2024-10-10 15:46:41
  * @FilePath: \roadMapPro\src\lib\jwt.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -24,14 +24,15 @@ export type TokenPayload = {
 // decodeToken函数使用jose库解码JWT
 export function decodeToken(token: string): TokenPayload {
   const claims = jose.decodeJwt(token);
-
+  console.log('jwt解码结果claims',claims);
   return claims as TokenPayload;
 }
 
 // 检查登录状态 isLoggedIn函数检查是否存在JWT Token，如果存在则返回true，表示用户已登录
 export function isLoggedIn() {
   const token = Cookies.get(TOKEN_COOKIE_NAME);
-
+  console.log('jwt.ts-token',token )
+  console.log('isLoggedIn',!!token);  
   return !!token;
 }
 
@@ -139,20 +140,3 @@ export function removeAIReferralCode() {
     domain: import.meta.env.DEV ? 'localhost' : 'localhost',
   });
 }
-
-// 设置产看赞助商Cookie
-// export function setViewSponsorCookie(sponsorId: string) {
-//   const key = `vsc-${sponsorId}`;
-//   const alreadyExist = Cookies.get(key);
-//   if (alreadyExist) {
-//     return;
-//   }
-
-//   Cookies.set(key, '1', {
-//     path: '/',
-//     expires: 1,
-//     sameSite: 'lax',
-//     secure: true,
-//     domain: import.meta.env.DEV ? 'localhost' : '.roadmap.sh',
-//   });
-// }

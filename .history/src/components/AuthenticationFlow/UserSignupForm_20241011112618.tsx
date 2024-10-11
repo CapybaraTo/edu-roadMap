@@ -49,6 +49,7 @@ export function UserSignupForm(props: UserSignupFormProps) {
     );
     console.log('signup:',response)
     if (response?.code === 200) {
+
       console.log(username);
       const { response: loginResponse, error: loginError } = await httpPost<{token: string}>(
         `${import.meta.env.PUBLIC_API_URL}/user/login`,

@@ -3,7 +3,6 @@ import { Menu } from "lucide-react";
 import Icon from "../AstroIcon.astro";
 import { NavigationDropdown } from "./NavigationDropdown"; // 导航栏的下拉菜单
 import { AccountDropdown } from "./AccountDropdown"; // 用户账户的下拉菜单
-// import { getUser, isLoggedIn } from "../../lib/jwt.ts"; // token和cookies   处理用户身份验证和获取用户信息
 ---
 
 <div class="bg-slate-900 py-5 text-white sm:py-8">
@@ -53,6 +52,7 @@ import { AccountDropdown } from "./AccountDropdown"; // 用户账户的下拉菜
       </li>
     </ul>
 
+    <!-- 移动手机端 Navigation Button -->
     <button
       class="block cursor-pointer text-gray-400 hover:text-gray-50 sm:hidden"
       aria-label="Menu"
@@ -61,6 +61,7 @@ import { AccountDropdown } from "./AccountDropdown"; // 用户账户的下拉菜
       <Icon icon="hamburger" />
     </button>
 
+    <!-- 移动手机端 Navigation Items -->
     <div
       class="fixed bottom-0 left-0 right-0 top-0 z-40 flex hidden items-center bg-slate-900"
       data-mobile-nav
@@ -75,7 +76,7 @@ import { AccountDropdown } from "./AccountDropdown"; // 用户账户的下拉菜
       <ul class="flex w-full flex-col items-center gap-2 md:gap-3">
         <li>
           <a href="/roadmaps" class="text-xl hover:text-blue-300 md:text-lg">
-            Dungeons
+            Roadmaps
           </a>
         </li>
         <!-- <li>

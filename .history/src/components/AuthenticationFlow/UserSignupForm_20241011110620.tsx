@@ -49,15 +49,16 @@ export function UserSignupForm(props: UserSignupFormProps) {
     );
     console.log('signup:',response)
     if (response?.code === 200) {
-      console.log(username);
+      // console.log('code200:',response);
       const { response: loginResponse, error: loginError } = await httpPost<{token: string}>(
         `${import.meta.env.PUBLIC_API_URL}/user/login`,
         {
-          username,
+          phone,
           password
         },
       );
-      // 直接登录并reload
+      // Log the user in and reload the page
+      // if (response?.token) {
       console.log('login',loginResponse)
       if (loginResponse?.token) {
         console.log('login-token:',loginResponse.token);

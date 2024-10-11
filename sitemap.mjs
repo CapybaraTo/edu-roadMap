@@ -11,28 +11,28 @@ async function getBestPracticesIds() {
 
 export function shouldIndexPage(pageUrl) {
   return ![
-    'https://roadmap.sh/404',
-    'https://roadmap.sh/terms',
-    'https://roadmap.sh/privacy',
-    'https://roadmap.sh/pdfs',
-    'https://roadmap.sh/g',
+    'https://localhost:4321/404',
+    // 'https://localhost:4321/terms',
+    // 'https://localhost:4321/privacy',
+    // 'https://localhost:4321/pdfs',
+    // 'https://localhost:4321/g',
   ].includes(pageUrl);
 }
 
 export async function serializeSitemap(item) {
   const highPriorityPages = [
-    'https://roadmap.sh',
-    'https://roadmap.sh/about',
-    'https://roadmap.sh/roadmaps',
-    'https://roadmap.sh/best-practices',
-    'https://roadmap.sh/guides',
-    'https://roadmap.sh/videos',
+    'https://localhost:4321',
+    'https://localhost:4321/about',
+    'https://localhost:4321/roadmaps',
+    // 'https://roadmap.sh/best-practices',
+    // 'https://roadmap.sh/guides',
+    // 'https://roadmap.sh/videos',
     ...(await getRoadmapIds()).flatMap((id) => [
-      `https://roadmap.sh/${id}`,
-      `https://roadmap.sh/${id}/topics`,
+      `https://localhost:4321/${id}`,
+      `https://localhost:4321/${id}/topics`,
     ]),
     ...(await getBestPracticesIds()).map(
-      (id) => `https://roadmap.sh/best-practices/${id}`
+      (id) => `https://localhost:4321/best-practices/${id}`
     ),
   ];
 
@@ -50,8 +50,8 @@ export async function serializeSitemap(item) {
 
   // Guide and video pages
   if (
-    item.url.startsWith('https://roadmap.sh/guides') ||
-    item.url.startsWith('https://roadmap.sh/videos')
+    item.url.startsWith('https://localhost:4321/guides') ||
+    item.url.startsWith('https://localhost:4321/videos')
   ) {
     return {
       ...item,

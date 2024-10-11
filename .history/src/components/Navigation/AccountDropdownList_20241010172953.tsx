@@ -2,7 +2,7 @@
  * @Author: capybarato 1023536640@qq.com
  * @Date: 2024-07-18 14:54:27
  * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-10-10 20:41:13
+ * @LastEditTime: 2024-10-10 17:29:50
  * @FilePath: \roadMapPro\src\components\Navigation\AccountDropdownList.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -66,15 +66,6 @@ export function AccountDropdownList(props: AccountDropdownListProps) {
           <Map className="h-4 w-4 stroke-[2px] text-slate-400 group-hover:text-white" />
           路线图
         </a>
-      </li>
-      <li className="px-1">
-        <button
-          className="group flex w-full items-center gap-2 rounded py-2 pl-3 pr-2 text-left text-sm font-medium text-slate-100 hover:bg-slate-700"
-          type="button"
-          // onClick={}
-        >
-          我的技能树
-        </button>
       </li>
       <li className="px-1">
         <button

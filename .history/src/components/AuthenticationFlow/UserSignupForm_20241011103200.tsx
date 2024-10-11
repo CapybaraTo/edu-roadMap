@@ -32,13 +32,13 @@ export function UserSignupForm(props: UserSignupFormProps) {
     setIsLoading(true);
     setIsDisabled?.(true);
     setError('');
-    // console.log(values);
+    console.log(values);
     const username = form.getFieldValue("userName")
     const password = form.getFieldValue("password");
     const phone = form.getFieldValue("phone");
     const email = form.getFieldValue("email");
     console.log('email:',email)
-    const { response, error } = await httpPost<{code:200}>(
+    const { response, error } = await httpPost<{status: "ok"}>(
       `${import.meta.env.PUBLIC_API_URL}/user/signup`,
       {
         username,
@@ -48,27 +48,27 @@ export function UserSignupForm(props: UserSignupFormProps) {
       },
     );
     console.log('signup:',response)
-    if (response?.code === 200) {
-      console.log(username);
-      const { response: loginResponse, error: loginError } = await httpPost<{token: string}>(
-        `${import.meta.env.PUBLIC_API_URL}/user/login`,
-        {
-          username,
-          password
-        },
-      );
-      // 直接登录并reload
-      console.log('login',loginResponse)
-      if (loginResponse?.token) {
-        console.log('login-token:',loginResponse.token);
-        setAuthToken(loginResponse.token);
-        window.location.reload();
-        return;
-      }
-      return;
+    if (response?.status == 'ok') {
+      console.log('signup:',response)
+      // const { response, error } = await httpPost<{token: string}>(
+      //   `${import.meta.env.PUBLIC_API_URL}/user/login`,
+      //   {
+      //     phone,
+      //     password
+      //   },
+      // );
+      // // Log the user in and reload the page
+      // // if (response?.token) {
+      // console.log(response)
+      // if (response?.token) {
+      //   setAuthToken(response.token);
+      //   window.location.reload();
+      //   // return;
+      // }
+      // return;
     }
 
-    if (error || response?.code !== 200) {
+    if (error || response?.status !== 'ok') {
       setIsLoading(false);
       setIsDisabled?.(false);
       setError(
@@ -122,13 +122,13 @@ export function UserSignupForm(props: UserSignupFormProps) {
           {
             type:'email',
             message:'请输入合法邮箱'
-          },
+           },
         ]}
       >
         <Input 
           size='large'
           className="block w-full rounded-lg border border-gray-300 px-3 py-2 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-          placeholder="邮箱"
+          placeholder="用户名称"
           // onInput={(e) => setName(String((e.target as any).value))}
         />
       </Form.Item>

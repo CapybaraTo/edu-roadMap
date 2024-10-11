@@ -38,14 +38,14 @@ export function UserLoginForm(props: UserLoginFormProps) {
     setIsDisabled?.(true);
     setError('');
     // console.log(values);
-    const username= form.getFieldValue("userName");
+    const phone= form.getFieldValue("phone");
     const password = form.getFieldValue("password");
     // 发送post请求，预期返回token
     console.log(`${import.meta.env.PUBLIC_API_URL}`)
     const { response, error } = await httpPost<{token: string}>(
       `${import.meta.env.PUBLIC_API_URL}/user/login`,
       {
-        username,
+        phone,
         password
       },
     );

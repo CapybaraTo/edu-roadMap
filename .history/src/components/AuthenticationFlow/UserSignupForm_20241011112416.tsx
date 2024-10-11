@@ -49,12 +49,14 @@ export function UserSignupForm(props: UserSignupFormProps) {
     );
     console.log('signup:',response)
     if (response?.code === 200) {
-      console.log(username);
+      const loginpassword = form.getFieldValue("password");
+      const loginname = form.getFieldValue("userName");
+      console.log(loginpassword);
       const { response: loginResponse, error: loginError } = await httpPost<{token: string}>(
         `${import.meta.env.PUBLIC_API_URL}/user/login`,
         {
-          username,
-          password
+          loginname,
+          loginpassword
         },
       );
       // 直接登录并reload
