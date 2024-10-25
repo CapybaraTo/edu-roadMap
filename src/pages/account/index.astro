@@ -1,0 +1,20 @@
+---
+import AccountSidebar from "../../components/AccountSidebar.astro"; //侧边导航
+import { ActivityPage } from "../../components/Activity/ActivityPage.tsx"; //活动信息
+import AccountLayout from "../../layouts/AccountLayout.astro";
+---
+
+<AccountLayout
+  title="Activity"
+  noIndex={true}
+  initialLoadingMessage={"Loading activity"}
+>
+  <AccountSidebar activePageId="activity" activePageTitle="Activity">
+    <!-- <UserPublicProfilePage
+    {...userDetails!}
+    projectDetails={projectDetails}
+    client:load
+  /> -->
+    <ActivityPage client:only="react" />
+  </AccountSidebar>
+</AccountLayout>

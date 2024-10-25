@@ -79,24 +79,14 @@ export function UserLoginForm(props: UserLoginFormProps) {
       onFinish={handleFormSubmit} 
       >   
       <Form.Item
-        name="phone"
-        // label="phone"
+        name="userName"
+        // label="userName"
         style={{ marginBottom: '8px' }}
-        rules={[
-          {
-            required:true,
-            message:'请输入手机号'
-          },
-          {                               
-            pattern: /^1\d{10}$/,
-            message: '手机号格式错误',
-          },
-        ]}
       >
       <Input
         size="large"
         className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-        placeholder="手机号"
+        placeholder="用户名"
         // prefix={<UserLoginForm/>}
         // onInput={(e) => setEmail(String((e.target as any).value))}
       />

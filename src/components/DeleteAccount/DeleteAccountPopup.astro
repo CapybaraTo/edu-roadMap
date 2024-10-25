@@ -1,0 +1,14 @@
+---
+import Popup from "../Popup/Popup.astro";
+import { DeleteAccountForm } from "./DeleteAccountForm.tsx";
+---
+
+<Popup id="delete-account-popup" title="Delete Account" subtitle="">
+  <div class="-mt-2.5">
+    <p>这将永久删除您的帐户和所有相关数据</p>
+
+    <p class="text-black font-medium -mb-2 mt-3 text-base">进行确认</p>
+
+    <DeleteAccountForm client:only="react" />
+  </div>
+</Popup>

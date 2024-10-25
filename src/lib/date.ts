@@ -42,7 +42,7 @@ export function getRelativeTimeString(
   }
 
   if (relativeTime === 'this minute') {
-    return 'just now';
+    return '刚刚';
   }
 
   return relativeTime;

@@ -1,3 +1,4 @@
+// 个数占比百分数转化
 export function getPercentage(portion: number, total: number): string {
   if (total <= 0 || portion <= 0) {
     return '0';

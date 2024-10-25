@@ -19,9 +19,9 @@ export type AllowedCustomRoadmapVisibility =
 export const allowedProfileVisibility = ['public', 'private'] as const;
 export type AllowedProfileVisibility = (typeof allowedProfileVisibility)[number];
 
-// 定义节点完成状态
-export const allowedOnboardingStatus = ['done', 'pending', 'ignored'] as const;
-export type AllowedOnboardingStatus = (typeof allowedOnboardingStatus)[number];
+// 定义新手入门节点完成状态
+// export const allowedOnboardingStatus = ['done', 'pending', 'ignored'] as const;
+// export type AllowedOnboardingStatus = (typeof allowedOnboardingStatus)[number];
 
 // UserDocument接口 描述了用户文档的数据结构
 export interface UserDocument {
@@ -32,26 +32,18 @@ export interface UserDocument {
   avatar?: string;   //用户头像url
   password: string;
   isEnabled: boolean;//用户账户是否启用
-  authProvider: 'github' | 'email';
+  // authProvider: 'github' | 'email';
   // authProvider: 'github' | 'google' | 'email' | 'linkedin';  //用户认证提供者种类
   metadata: Record<string, any>;     //
   calculatedStats: {
     activityCount: number;
     totalVisitCount: number;
-    longestVisitStreak: number;
-    currentVisitStreak: number;
+    longestVisitStreak: number;   // 最长连续访问
     updatedAt: Date;
   };
-  verificationCode: string;   // 存储用户邮箱验证的验证码
-  resetPasswordCode: string;  // 存储用户重置密码的验证码
+  // verificationCode: string;   // 存储用户邮箱验证的验证码
+  // resetPasswordCode: string;  // 存储用户重置密码的验证码
   isSyncedWithSendy: boolean;
-  links?: {    // 用户的社交媒体链接
-    github?: string;
-    // linkedin?: string;
-    twitter?: string;
-    website?: string;
-  };
-  // username?: string;
   profileVisibility: AllowedProfileVisibility;    // 限定个人资料的可见性
   publicConfig?: {   // 用户的公共配置信息
     isAvailableForHire: boolean;
@@ -64,18 +56,6 @@ export interface UserDocument {
   };
   resetPasswordCodeAt: string;
   verifiedAt: string;
-
-  // Onboarding fields
-  onboardingStatus?: AllowedOnboardingStatus;
-  onboarding?: {
-    updateProgress: AllowedOnboardingStatus;
-    publishProfile: AllowedOnboardingStatus;
-    customRoadmap: AllowedOnboardingStatus;
-    addFriends: AllowedOnboardingStatus;
-    roadCard: AllowedOnboardingStatus;
-    inviteTeam: AllowedOnboardingStatus;
-  };
-
   createdAt: string;
   updatedAt: string;
 }
@@ -95,7 +75,7 @@ type ProgressResponse = {
   skipped: number;
   done: number;
   total: number;
-  isCustomResource?: boolean;
+  // isCustomResource?: boolean;
   roadmapSlug?: string;
 };
 
@@ -114,7 +94,7 @@ export type GetUserProfileRoadmapResponse = {
   title: string;
   topicCount: number;
   roadmapSlug?: string;
-  isCustomResource?: boolean;
+  // isCustomResource?: boolean;
   done: string[];
   learning: string[];
   skipped: string[];
