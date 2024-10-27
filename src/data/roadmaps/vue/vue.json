@@ -1556,7 +1556,7 @@
                   "x": "15",
                   "y": "81",
                   "properties": {
-                    "controlName": "ext_link:roadmap.sh"
+                    "controlName": "ext_link:localhost:4321"
                   },
                   "children": {
                     "controls": {
@@ -1587,7 +1587,7 @@
                           "properties": {
                             "color": "16777215",
                             "size": "20",
-                            "text": "roadmap.sh"
+                            "text": "localhost:4321"
                           }
                         },
                         {
@@ -2725,7 +2725,7 @@
           "x": "551",
           "y": "1837",
           "properties": {
-            "controlName": "ext_link:roadmap.sh/frontend"
+            "controlName": "ext_link:localhost:4321/frontend"
           },
           "children": {
             "controls": {
@@ -2763,7 +2763,7 @@
                   "x": "205",
                   "y": "58",
                   "properties": {
-                    "text": "roadmap.sh/frontend",
+                    "text": "localhost:4321/frontend",
                     "size": "18",
                     "color": "10027263"
                   }
@@ -4547,7 +4547,7 @@
           "x": "557",
           "y": "144",
           "properties": {
-            "controlName": "ext_link:roadmap.sh/javascript"
+            "controlName": "ext_link:localhost:4321/javascript"
           },
           "children": {
             "controls": {
@@ -4620,7 +4620,7 @@
                   "x": "23",
                   "y": "62",
                   "properties": {
-                    "controlName": "ext_link:roadmap.sh/react"
+                    "controlName": "ext_link:localhost:4321/react"
                   },
                   "children": {
                     "controls": {
@@ -4698,7 +4698,7 @@
                   "x": "23",
                   "y": "95",
                   "properties": {
-                    "controlName": "ext_link:roadmap.sh/angular"
+                    "controlName": "ext_link:localhost:4321/angular"
                   },
                   "children": {
                     "controls": {

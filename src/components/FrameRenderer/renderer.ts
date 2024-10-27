@@ -80,9 +80,9 @@ export class Renderer {
    * @param { string } jsonUrl
    * @returns {Promise<SVGElement>}
    */
-  // 将JSON URL转换为SVG元素的方法
+  // 将JSON转换为SVG元素的方法
   jsonToSvg(jsonUrl: string) {
-    console.log('jsonUrl:',jsonUrl);
+    // console.log('jsonUrl:',jsonUrl);
     // 检查jsonUrl是否已定义
     if (!jsonUrl) {
       console.error('检查jsonUrl是否已定义jsonUrl not defined in frontmatter');
@@ -91,7 +91,7 @@ export class Renderer {
 
     // 检查容器元素是否存在
     if (!this.containerEl) {
-      console.log('检查容器元素是否存在');
+      // console.log('检查容器元素是否存在');
       return null;
     }
 // 将容器元素的内容设置为加载器HTML
@@ -100,7 +100,7 @@ export class Renderer {
     // 使用fetch获取JSON数据并转换为SVG
     return fetch(jsonUrl)
       .then((res) => {
-        console.log('res:',res);        
+        // console.log('res:',res);        
         return res.json();
       })
       .then((json) => {
@@ -182,6 +182,11 @@ export class Renderer {
       return;
     }
 
+    // roadmap2 新版
+    if (/^check:/.test(topicId)) {
+      topicId = topicId.replace('check:', '');
+    }
+
     // 设置页面进度信息
     pageProgressMessage.set('更新进度');
     // 更新资源进度
@@ -219,6 +224,7 @@ export class Renderer {
       return;
     }
 
+    // 右键  直接删除
     if (targetGroup.classList.contains('removed')) {
       return;
     }
@@ -256,7 +262,7 @@ export class Renderer {
     if (/^ext_link/.test(groupId)) {
       const externalLink = groupId.replace('ext_link:', '');
 
-      if (!externalLink.startsWith('roadmap.sh')) {
+      if (!externalLink.startsWith('localhost:4321')) {
         // window.fireEvent
         (window as any).fireEvent({
           category: 'RoadmapExternalLink',

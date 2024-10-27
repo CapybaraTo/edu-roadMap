@@ -6,7 +6,7 @@ import type { AllowedOnboardingStatus } from '../../api/user';
 import { pageProgressMessage } from '../../stores/page';
 import { httpPatch } from '../../lib/http';
 import { useToast } from '../../hooks/use-toast';
-import type { OnboardingConfig } from './AccountDropdown';
+// import type { OnboardingConfig } from './AccountDropdown';
 import { setAuthToken } from '../../lib/jwt';
 import { NUDGE_ONBOARDING_KEY } from '../OnboardingNudge.tsx';
 
@@ -50,16 +50,16 @@ export function OnboardingModal(props: OnboardingModalProps) {
         url: '/account/update-profile',
         urlText: 'Update Profile',
       },
-      {
-        id: 'customRoadmap',
-        title: 'Custom Roadmaps',
-        description: 'Create your own roadmap from scratch',
-        status: onboardingConfig?.onboarding?.customRoadmap || 'pending',
-        url: import.meta.env.DEV
-          ? 'http://localhost:4321'
-          : 'https://draw.roadmap.sh',
-        urlText: 'Create Roadmap',
-      },
+      // {
+      //   id: 'customRoadmap',
+      //   title: 'Custom Roadmaps',
+      //   description: 'Create your own roadmap from scratch',
+      //   status: onboardingConfig?.onboarding?.customRoadmap || 'pending',
+      //   url: import.meta.env.DEV
+      //     ? 'http://localhost:4321'
+      //     : 'https://draw.roadmap.sh',
+      //   urlText: 'Create Roadmap',
+      // },
       {
         id: 'addFriends',
         title: 'Invite your Friends',
@@ -152,7 +152,7 @@ export function OnboardingModal(props: OnboardingModalProps) {
   return (
     <Modal onClose={onClose} bodyClassName="text-black h-auto">
       <div className="px-4 pb-2 pl-11 pt-4">
-        <h2 className="mb-0.5 text-xl font-semibold">Welcome to roadmap.sh</h2>
+        <h2 className="mb-0.5 text-xl font-semibold">Welcome to Dungeons</h2>
         <p className="text-balance text-sm text-gray-500">
           Complete the tasks below to get started!
         </p>

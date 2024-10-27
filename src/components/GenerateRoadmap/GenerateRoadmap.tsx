@@ -469,7 +469,7 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
     );
   }
 
-  const pageUrl = `https://roadmap.sh/ai/${roadmapSlug}`;
+  const pageUrl = `https://localhost:4321/ai/${roadmapSlug}`;
   const canGenerateMore = roadmapLimitUsed < roadmapLimit;
 
   return (
@@ -671,12 +671,12 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
                     <Download size={15} />
                     Download
                   </button>
-                  {roadmapId && (
+                  {/* {roadmapId && (
                     <ShareRoadmapButton
                       description={`Check out ${roadmapTerm} roadmap I generated on roadmap.sh`}
                       pageUrl={pageUrl}
                     />
-                  )}
+                  )} */}
                 </div>
 
                 <div className="flex items-center justify-between gap-2">

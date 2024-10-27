@@ -53,7 +53,7 @@ export function UserLoginForm(props: UserLoginFormProps) {
     // if (response?.token) {
     console.log(response)
     if (response?.token) {
-      console.log(response.token);
+      // console.log(response.token);
       // console.log(typeof response.token);
       setAuthToken(response.token);
       window.location.reload();

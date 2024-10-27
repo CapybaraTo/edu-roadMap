@@ -6,8 +6,7 @@ import FrameRenderer from "../../components/FrameRenderer/FrameRenderer.astro"; 
 // import RelatedRoadmaps from '../../components/RelatedRoadmaps.astro';    // 相关路线图
 import RoadmapHeader from "../../components/RoadmapHeader.astro"; // 路线图界面头部
 // import ShareIcons from '../../components/ShareIcons/ShareIcons.astro';      //分享按钮
-// import { TopicDetail } from "../../components/TopicDetail/TopicDetail.tsx";
-// import UpcomingForm from "../../components/UpcomingForm.astro";     // 等待更新
+import { TopicDetail } from "../../components/TopicDetail/TopicDetail.tsx";
 import { UserProgressModal } from "../../components/UserProgress/UserProgressModal.tsx";
 import BaseLayout from "../../layouts/BaseLayout.astro"; // 布局
 import {
@@ -17,6 +16,9 @@ import {
 // 社交共享
 import { getOpenGraphImageUrl } from "../../lib/open-graph.ts";
 import { type RoadmapFrontmatter, getRoadmapIds } from "../../lib/roadmap.ts";
+import RoadmapNote from "../../components/RoadmapNote.astro";
+import { RoadmapTitleQuestion } from "../../components/RoadmapTitleQuestion";
+import ResourceProgressStats from "../../components/ResourceProgressStats.astro";
 
 // 获取所有路线图的ID列表，然后使用这些ID来生成静态路径，供Astro用于静态生成页面
 export async function getStaticPaths() {
@@ -92,6 +94,14 @@ const ogImageUrl =
     slot="after-header"
   />
 
+  <TopicDetail
+    resourceTitle={roadmapData.title}
+    resourceId={roadmapId}
+    resourceType="roadmap"
+    client:idle
+    canSubmitContribution={true}
+  />
+
   <!-- 路线图头部 -->
   <RoadmapHeader
     title={roadmapData.title}
@@ -104,41 +114,50 @@ const ogImageUrl =
     isForkable={roadmapData.isForkable}
     question={roadmapData.question}
   />
+ye
+  <!-- 页面底部问题 -->
+  <!-- <div class="container mt-2.5">
+    <div class="rounded-md border bg-white">
+      <ResourceProgressStats resourceId={roadmapId} resourceType="roadmap" />
+      {
+        question?.title && (
+          <RoadmapTitleQuestion
+            client:load
+            question={question?.title}
+            answer={question?.description}
+          />
+        )
+      }
+    </div>
+  </div> -->
 
   <div class="bg-gray-50 pt-4 sm:pt-12">
-    {
-      !roadmapData.isUpcoming && (
-        <div class="container relative !max-w-[1000px]">
-          {/* <ShareIcons
+    <div class="container relative !max-w-[1000px]">
+      {
+        /* <ShareIcons
             description={roadmapData.briefDescription}
             pageUrl={`https://roadmap.sh/${roadmapId}`}
-          /> */}
-          {/* <TopicDetail
-            resourceTitle={roadmapData.title}
+          /> */
+      }
+
+      {
+        roadmapData?.renderer === "editor" ? (
+          <EditorRoadmap
+            resourceId={roadmapId}
             resourceType="roadmap"
-            client:idle
-            canSubmitContribution={true}
-          /> */}
+            dimensions={roadmapData.dimensions!}
+            client:load
+          />
+        ) : (
+          <FrameRenderer
+            resourceType={"roadmap"}
+            resourceId={roadmapId}
+            dimensions={roadmapData.dimensions}
+          />
+        )
+      }
+    </div>
 
-          {roadmapData?.renderer === "editor" ? (
-            <EditorRoadmap
-              resourceId={roadmapId}
-              resourceType="roadmap"
-              dimensions={roadmapData.dimensions!}
-              client:load
-            />
-          ) : (
-            <FrameRenderer
-              resourceType={"roadmap"}
-              resourceId={roadmapId}
-              dimensions={roadmapData.dimensions}
-            />
-          )}
-        </div>
-      )
-    }
-
-    <!-- {roadmapData.isUpcoming && <UpcomingForm />} -->
     <UserProgressModal
       resourceId={roadmapId}
       resourceType="roadmap"

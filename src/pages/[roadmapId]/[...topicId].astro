@@ -29,7 +29,7 @@ const { file, url, roadmapId, roadmap, heading } =
   Astro.props as RoadmapTopicFileType;
 
 const fileWithoutBasePath = file.file?.replace(/.+?\/src\/data/, "/src/data");
-console.log("topicid:", fileWithoutBasePath);
+// console.log("topicid:", fileWithoutBasePath);
 const gitHubUrl = `https://github.com/CapybaraTo/edu-roadmap/tree/master${fileWithoutBasePath}`;
 ---
 

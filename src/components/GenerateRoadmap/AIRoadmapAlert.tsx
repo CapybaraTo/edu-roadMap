@@ -1,3 +1,11 @@
+/*
+ * @Author: capybarato 1023536640@qq.com
+ * @Date: 2024-10-08 11:09:18
+ * @LastEditors: capybarato 1023536640@qq.com
+ * @LastEditTime: 2024-10-25 20:34:51
+ * @FilePath: \roadMapPro\src\components\GenerateRoadmap\AIRoadmapAlert.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { BadgeCheck, Telescope, Wand } from 'lucide-react';
 
 type AIRoadmapAlertProps = {
@@ -19,7 +27,7 @@ export function AIRoadmapAlert(props: AIRoadmapAlertProps) {
         {isListing
           ? 'These are AI generated roadmaps and are not verified by'
           : 'This is an AI generated roadmap and is not verified by'}{' '}
-        <span className={'font-semibold'}>roadmap.sh</span>. We are currently in
+        <span className={'font-semibold'}>Dungeons</span>. We are currently in
         beta and working hard to improve the quality of the generated roadmaps.
       </p>
       <p className="mb-1.5 mt-2 flex flex-col gap-2 text-sm sm:flex-row">

@@ -15,10 +15,14 @@
     "upgrade": "ncu -u",
     "roadmap-links": "node scripts/roadmap-links.cjs",
     "roadmap-dirs": "node scripts/roadmap-dirs.cjs",
+    "roadmap-assets": "tsx scripts/editor-roadmap-assets.ts",
+    "editor-roadmap-dirs": "tsx scripts/editor-roadmap-dirs.ts",
+    "editor-roadmap-content": "tsx scripts/editor-roadmap-content.ts",
     "roadmap-content": "node scripts/roadmap-content.cjs",
     "generate-renderer": "sh scripts/generate-renderer.sh",
     "generate:og": "node ./scripts/generate-og-images.mjs",
     "warm:urls": "sh ./scripts/warm-urls.sh https://localhost:4321/sitemap-0.xml",
+    "generate:roadmap-content-json": "tsx ./scripts/editor-roadmap-content-json.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -41,6 +45,7 @@
     "image-size": "^1.1.1",
     "jose": "^5.4.0",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.394.0",
     "markdown-it": "^14.1.0",
     "nanostores": "^0.10.3",

@@ -1,4 +1,3 @@
-// 
 import { useCallback, useEffect, useRef } from 'react';     // REACT钩子
 import './EditorRoadmapRenderer.css';    // 路线图渲染样式
 import {
@@ -13,7 +12,7 @@ import { pageProgressMessage } from '../../stores/page';    //  定义了一个�
 import { useToast } from '../../hooks/use-toast';
 // 导入reactflow库中定义的节点和边的类型
 import type { Edge, Node } from 'reactflow';    
-import { Renderer } from '../../../editor/renderer/index.tsx';    // 渲染器安装说明
+import { Renderer } from '../../../editor/renderer';    // 渲染器安装说明
 import { slugify } from '../../lib/slugger.ts';    //字符串转换URL
 import { isLoggedIn } from '../../lib/jwt';    // 检查用户是否登录
 import { showLoginPopup } from '../../lib/popup.ts';    // 显示登录弹窗的函数
@@ -53,7 +52,16 @@ function getNodeDetails(svgElement: SVGElement): RoadmapNodeDetails | null {
 }
 
 // 定义允许的节点类型数组
-const allowedNodeTypes = ['topic', 'subtopic', 'button', 'link-item'];
+const allowedNodeTypes = [
+  'topic',
+  'subtopic',
+  'button',
+  'link-item',
+  'resourceButton',
+  'todo',
+  'todo-checkbox',
+  'checklist-item',
+];
 
 // 本组件的实现
 export function EditorRoadmapRenderer(props: RoadmapRendererProps) {
@@ -70,7 +78,7 @@ export function EditorRoadmapRenderer(props: RoadmapRendererProps) {
     newStatus: ResourceProgressType,
   ) {
     // 设置页面进度信息
-    pageProgressMessage.set('Updating progress');
+    pageProgressMessage.set('正在更新进度');
     // 更新资源进度，并处理成功或失败的结果
     updateResourceProgress(
       {
@@ -108,7 +116,7 @@ export function EditorRoadmapRenderer(props: RoadmapRendererProps) {
     }
 
     // 处理按钮或链接项的点击事件
-    if (nodeType === 'button' || nodeType === 'link-item') {
+    if (nodeType === 'button' || nodeType === 'link-item' || nodeType === 'resourceButton') {
       // 根据数据属性获取链接，并判断是否为外链
       const link = targetGroup?.dataset?.link || '';
       const isExternalLink = link.startsWith('http');
@@ -123,6 +131,21 @@ export function EditorRoadmapRenderer(props: RoadmapRendererProps) {
     // 处理主题状态的变更
     const isCurrentStatusLearning = targetGroup?.classList.contains('learning');   //学习状态
     const isCurrentStatusSkipped = targetGroup?.classList.contains('skipped');   //跳过状态
+
+    if (nodeType === 'todo-checkbox') {
+      e.preventDefault();
+      if (!isLoggedIn()) {
+        showLoginPopup();
+        return;
+      }
+
+      const newStatus = targetGroup?.classList.contains('done')
+        ? 'pending'
+        : 'done';
+      updateTopicStatus(nodeId, newStatus);
+      return;
+    }
+
 
     // 使用Shift键点击时更新主题状态
     if (e.shiftKey) {
@@ -146,6 +169,27 @@ export function EditorRoadmapRenderer(props: RoadmapRendererProps) {
       }
 
       updateTopicStatus(nodeId, isCurrentStatusSkipped ? 'pending' : 'skipped');
+      return;
+    }
+
+        // for the click on rect of checklist-item
+    if (nodeType === 'checklist-item' && target.tagName === 'rect') {
+      e.preventDefault();
+      if (!isLoggedIn()) {
+        showLoginPopup();
+        return;
+      }
+    
+      const newStatus = targetGroup?.classList.contains('done')
+        ? 'pending'
+        : 'done';
+      updateTopicStatus(nodeId, newStatus);
+      return;
+    }
+
+
+    // we don't have the topic popup for checklist-item
+    if (nodeType === 'checklist-item') {
       return;
     }
 

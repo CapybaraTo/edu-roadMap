@@ -4,6 +4,15 @@ import { cn } from '../../lib/classname.ts';
 import { Filter, X } from 'lucide-react';
 import { CategoryFilterButton } from './CategoryFilterButton';
 import { useOutsideClick } from '../../hooks/use-outside-click.ts';
+import {
+  deleteUrlParam,
+  getUrlParams,
+  setUrlParams,
+} from '../../lib/browser.ts';
+// import { RoadmapCard } from './RoadmapCard.tsx';
+import { httpGet } from '../../lib/http.ts';
+import type { UserProgressResponse } from '../HeroSection/FavoriteRoadmaps.tsx';
+import { isLoggedIn } from '../../lib/jwt.ts';
 
 const groupNames = [
   'Absolute Beginners',
@@ -446,6 +455,46 @@ export function RoadmapsPage() {
       })),
     ]);
   }, [activeGroup]);
+
+  async function loadProgress() {
+    const { response: progressList, error } =
+      await httpGet<UserProgressResponse>(
+        `${import.meta.env.PUBLIC_API_URL}/v1-get-hero-roadmaps`,
+      );
+
+    if (error || !progressList) {
+      return;
+    }
+
+    progressList?.forEach((progress) => {
+      window.dispatchEvent(
+        new CustomEvent('mark-favorite', {
+          detail: {
+            resourceId: progress.resourceId,
+            resourceType: progress.resourceType,
+            isFavorite: progress.isFavorite,
+          },
+        }),
+      );
+    });
+  }
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      return;
+    }
+
+    loadProgress().finally(() => {});
+  }, []);
+
+  useEffect(() => {
+    const { g } = getUrlParams() as { g: AllowGroupNames };
+    if (!g) {
+      return;
+    }
+
+    setActiveGroup(g);
+  }, []);
 
   return (
     <div className="border-t bg-gray-100">

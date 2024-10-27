@@ -4,8 +4,8 @@ pdfUrl: '/pdfs/roadmaps/javascript.pdf'
 order: 5
 briefTitle: 'JavaScript'
 briefDescription: 'Step by step guide to learn JavaScript in 2024'
-title: 'JavaScript 学习路线图'
-description: '2024年学习 JavaScript 的分步指南'
+title: 'JavaScript Roadmap'
+description: 'Step by step guide to learn JavaScript in 2024'
 isNew: false
 hasTopics: true
 dimensions:
@@ -14,7 +14,7 @@ dimensions:
 schema:
   headline: 'JavaScript Roadmap'
   description: 'Learn JavaScript with this interactive step by step guide in 2024. We also have resources and short descriptions attached to the roadmap items so you can get everything you want to learn in one place.'
-  imageUrl: 'https://localhost:4321/roadmaps/javascript.png'
+  imageUrl: 'https://roadmap.sh/roadmaps/javascript.png'
   datePublished: '2023-01-05'
   dateModified: '2023-01-20'
 seo:

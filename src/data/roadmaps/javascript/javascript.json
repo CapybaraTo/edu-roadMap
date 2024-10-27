@@ -4024,7 +4024,7 @@
           "x": "959",
           "y": "373",
           "properties": {
-            "controlName": "100-javascript-variables:variable-declarations:var"
+            "controlName": "100-var"
           },
           "children": {
             "controls": {
@@ -4071,7 +4071,7 @@
           "x": "1057",
           "y": "373",
           "properties": {
-            "controlName": "101-javascript-variables:variable-declarations:let"
+            "controlName": "101-let"
           },
           "children": {
             "controls": {
@@ -4118,7 +4118,7 @@
           "x": "1155",
           "y": "373",
           "properties": {
-            "controlName": "102-javascript-variables:variable-declarations:const"
+            "controlName": "102-const"
           },
           "children": {
             "controls": {
@@ -4842,7 +4842,7 @@
           "x": "958",
           "y": "439",
           "properties": {
-            "controlName": "100-javascript-variables:variable-declarations"
+            "controlName": "100-variable-declarations"
           },
           "children": {
             "controls": {
