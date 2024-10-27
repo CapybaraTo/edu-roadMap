@@ -20,9 +20,6 @@ type ProgressResponse = {
   total: number;
 };
 
-type UserPublicProfilePageProps = GetPublicProfileResponse;
-
-
 export type ActivityResponse = {
   done: number;
   learning: {     //正在学习的路线图
@@ -37,29 +34,25 @@ export type ActivityResponse = {
   activities: UserStreamActivity[];
 };
 
-// export type UserActivityCount = {
-//   activityCount: Record<string, number>;
-//   totalActivityCount: number;
-// };
+export type dateActivity = {
+  date: string,
+  count: number,
+};
 
-// export type progressHeatMap = {
-//   activityProgress: UserActivityCount;
-//   createdAt: Date | null;
-// }
+// data 就是赋值后的heatmapResponse
+export type heatmapResponse = {
+  heatActivities: dateActivity[],
+  joinedAt: string
+};
 
 // 加载路线图学习进度  userRoadmapStats
-export function ActivityPage(props: UserPublicProfilePageProps) {
-  const {
-    activityProgress,
-    username,
-    _id: userId,
-    createdAt,
-  } = props;
+export function ActivityPage() {
 
   const toast = useToast();
   const [activity, setActivity] = useState<ActivityResponse>();
   const [isLoading, setIsLoading] = useState(true);
   
+  // 获取用户信息 /user/usetstats
   async function loadActivity() {
     const { error, response } = await httpGet<ActivityResponse>(
       `${import.meta.env.PUBLIC_API_URL}/user/stats`,    
@@ -90,25 +83,37 @@ export function ActivityPage(props: UserPublicProfilePageProps) {
 
   }
 
-  // 链接路线图
+  // 获取用户heatmap数据 data,count []
+  const [heatMapData, setHeatMapData] = useState<heatmapResponse>();
+  async function loadHeatMapActivity() {
+    const { error, response } = await httpGet<heatmapResponse>(
+      `${import.meta.env.PUBLIC_API_URL}/resource/heatmap`,    
+    );
+    console.log("heatmap response",response)
+    if (!response || error) {
+      console.error('Error! 加载heatmap时出现了什么问题...');
+      console.error(error);
+      return;
+    }
+    setHeatMapData(response);    // heatmap中的数据放进了data里
+  }
+
+  // 加载本地路线图
   async function loadAllProjectDetails() {
     const { error, response } = await httpGet<PageType[]>(`/pages.json`);
-
     if (error) {
       toast.error(error.message || 'Something went wrong');
       return;
     }
-
     if (!response) {
       return [];
     }
-
     const allProjects = response.filter((page) => page.group === 'Projects');
-    // setProjectDetails(allProjects);
   }
 
+  // 挂载前先去获取数据
   useEffect(() => {
-    Promise.allSettled([loadActivity(), loadAllProjectDetails()]).finally(
+    Promise.allSettled([loadActivity(), loadAllProjectDetails(),loadHeatMapActivity()]).finally(
       () => {
         pageProgressMessage.set('');
         setIsLoading(false);
@@ -118,24 +123,20 @@ export function ActivityPage(props: UserPublicProfilePageProps) {
 
   // 抽出来learning的roadmap部分单独一个对象learningRoadmaps
   const learningRoadmaps = activity?.learning.roadmaps || [];
-  // const learningBestPractices = activity?.learning.bestPractices || [];
 
   if (isLoading) {
     return null;
   }
 
   // 按日期排序   // 并去掉learning以及done为0
-  const learningRoadmapsToShow = learningRoadmaps
-    .sort((a, b) => {
+  const learningRoadmapsToShow = learningRoadmaps.sort((a, b) => {
       const updatedAtA = new Date(a.updatedAt);
       const updatedAtB = new Date(b.updatedAt);
-
       return updatedAtB.getTime() - updatedAtA.getTime();
     })
     .filter((roadmap) => roadmap.learning > 0 || roadmap.done > 0);
 
     const hasProgress = learningRoadmapsToShow.length !== 0;
-
 
   return (
     <>
@@ -150,9 +151,6 @@ export function ActivityPage(props: UserPublicProfilePageProps) {
 
         {learningRoadmapsToShow.length > 0 && (
           <>
-          <div>
-            {/* 类github的提交heatmap */}
-          </div>
             <h2 className="mb-3 text-xs uppercase text-gray-400">
               持续跟踪
             </h2>
@@ -200,12 +198,12 @@ export function ActivityPage(props: UserPublicProfilePageProps) {
         )}
       </div>
 
-      {/* <div className="mx-0 px-0 py-5 pb-0 md:-mx-10 md:px-8 md:py-8 md:pb-0">
-        {learningRoadmapsToShow.length > 0 && (
-          <UserActivityHeatmap joinedAt={createdAt} activityProgress={activityProgress!} />
-        )}
-      </div> */}
-
+      <div className="mx-0 px-0 py-5 pb-0 md:-mx-10 md:px-8 md:py-8 md:pb-0">
+        <h2 className="mb-3 text-xs uppercase text-gray-400">
+          热力图
+        </h2>
+        <UserActivityHeatmap joinedAt = {heatMapData?.joinedAt || ''} heatActivities={heatMapData?.heatActivities || []}/>
+      </div>
       {hasProgress && (
         <ActivityStream activities={activity?.activities || []} />
       )}
