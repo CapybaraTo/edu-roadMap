@@ -1,0 +1,37 @@
+---
+import GridItem from "../../components/GridItem.astro";
+import SimplePageHeader from "../../components/SimplePageHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllQuestionGroups } from "../../lib/question-group";
+// 题目主页 大类题目列表
+
+const questionGroups = await getAllQuestionGroups();
+---
+
+<BaseLayout
+  title="测试题目"
+  description={"逐步学习不同工具或技术的指南和路径"}
+  permalink={"/roadmaps"}
+>
+  <SimplePageHeader
+    title="测试题目"
+    description="帮助您评估和提高知识和技能的测验题目"
+  />
+
+  <div class="flex bg-gray-100 pb-14 pt-4 sm:pb-16 sm:pt-8">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
+        {
+          questionGroups.map((questionGroup) => (
+            <GridItem
+              url={`/questions/${questionGroup.id}`}
+              isNew={questionGroup.frontmatter.isNew}
+              title={questionGroup.frontmatter.briefTitle}
+              description={`${questionGroup.questions.length} Questions &middot; ${questionGroup.allTopics.length} topics`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</BaseLayout>

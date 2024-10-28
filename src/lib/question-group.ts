@@ -33,6 +33,7 @@ type RawQuestionGroupFileType =
     id: string;
   };
 
+  // 一个题目的对象  id、question、answer、topics标签
 export type QuestionType = {
   id: string;
   question: string;
@@ -51,6 +52,7 @@ export type QuestionGroupType = RawQuestionGroupFileType & {
  *
  * @returns Promisified BestPracticeFileType[]
  */
+// 获取本地题目md文件
 export async function getAllQuestionGroups(): Promise<QuestionGroupType[]> {
   const questionGroupFilesMap = import.meta.glob<RawQuestionGroupFileType>(
     `/src/data/question-groups/*/*.md`,
@@ -59,8 +61,8 @@ export async function getAllQuestionGroups(): Promise<QuestionGroupType[]> {
     },
   );
 
+  // 获取本地题目答案的md文件
   const answerFilesMap = import.meta.glob<string>(
-    // get the files inside /src/data/question-groups/[ignore]/content/*.md
     `/src/data/question-groups/*/content/*.md`,
     {
       eager: true,
@@ -76,22 +78,25 @@ export async function getAllQuestionGroups(): Promise<QuestionGroupType[]> {
       const [questionGroupDir, questionGroupFileName] = fileParts?.slice(-2);
 
       const questionGroupFileId = questionGroupFileName?.replace('.md', '');
+      // 解析md文件  map()函数
       const formattedAnswers: QuestionType[] =
         questionGroupFile.frontmatter.questions.map((qa) => {
           const questionText = qa.question;
           let answerText = qa.answer;
           let isLongAnswer = false;
 
+          // 链接并解析answer.md文件
           if (answerText.endsWith('.md')) {
             const answerFilePath = `/src/data/question-groups/${questionGroupDir}/content/${answerText}`;
             answerText =
               (answerFilesMap[answerFilePath] as any)?.default ||
               answerFilesMap[answerFilePath] ||
               `File missing: ${answerFilePath}`;
-
             isLongAnswer = true;
           }
 
+          // question、answer、topics标签 解析出来
+          // id根据questionText生成  lower true转为小写字母
           return {
             id: slugify(questionText, { lower: true }),
             question: questionText,

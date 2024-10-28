@@ -1,11 +1,3 @@
-<!--
- * @Author: capybarato 1023536640@qq.com
- * @Date: 2024-10-08 19:23:45
- * @LastEditors: capybarato 1023536640@qq.com
- * @LastEditTime: 2024-10-08 20:41:12
- * @FilePath: \roadMapPro\src\data\question-groups\javascript\content\inheritance.md
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 Inheritance is a way to create a new `Class` from an existing `Class`. The new `Class` inherits all the properties and methods from the existing `Class`. The new `Class` is called the child `Class`, and the existing `Class` is called the parent `Class`.
 
 ## Example
@@ -19,9 +11,7 @@ class Roadmap {
   }
 
   getRoadmapUrl() {
-    console.log(`https://localhost:4321/${this.slug}`);
-    // console.log(`https://roadmap.sh/${this.slug}`);
-
+    console.log(`https://roadmap.sh/${this.slug}`);
   }
 }
 
