@@ -8,7 +8,7 @@ import {
 } from 'react';
 import './GenerateRoadmap.css';
 import { useToast } from '../../hooks/use-toast';
-import { generateAIRoadmapFromText } from '../../../editor/utils/roadmap-generator';
+// import { generateAIRoadmapFromText } from '../../../editor/utils/roadmap-generator';
 import { renderFlowJSON } from '../../../editor/renderer/renderer';
 import { replaceChildren } from '../../lib/dom';
 import { readAIRoadmapStream } from '../../helper/read-stream.ts';
@@ -19,23 +19,23 @@ import {
   setAIReferralCode,
   visitAIRoadmap,
 } from '../../lib/jwt';
-import { RoadmapSearch } from './RoadmapSearch';
+import { RoadmapSearch } from './RoadmapSearch';   // roadmap搜索组件
 import { Spinner } from '../ReactIcons/Spinner.tsx';
 import { Ban, Cog, Download, PenSquare, Save, Wand } from 'lucide-react';
-// import { ShareRoadmapButton } from '../ShareRoadmapButton';
 import { httpGet, httpPost } from '../../lib/http.ts';
 import { pageProgressMessage } from '../../stores/page.ts';
 import { deleteUrlParam, getUrlParams } from '../../lib/browser.ts';
-import { downloadGeneratedRoadmapImage } from '../../helper/download-image.ts';
-import { showLoginPopup } from '../../lib/popup.ts';
+import { downloadGeneratedRoadmapImage } from '../../helper/download-image.ts';   // 下载
+import { showLoginPopup } from '../../lib/popup.ts';   // 登录
 import { cn } from '../../lib/classname.ts';
 import { RoadmapTopicDetail } from './RoadmapTopicDetail';
 import { AIRoadmapAlert } from './AIRoadmapAlert';
 import { IS_KEY_ONLY_ROADMAP_GENERATION } from '../../lib/ai.ts';
-import { AITermSuggestionInput } from './AITermSuggestionInput';
+import { AITermSuggestionInput } from './AITermSuggestionInput';    // 搜索框提示内容
 import { IncreaseRoadmapLimit } from './IncreaseRoadmapLimit';
 import { AuthenticationForm } from '../AuthenticationFlow/AuthenticationForm.tsx';
 
+// 限制生成次数
 export type GetAIRoadmapLimitResponse = {
   used: number;
   limit: number;
@@ -46,17 +46,20 @@ export type GetAIRoadmapLimitResponse = {
 const ROADMAP_ID_REGEX = new RegExp('@ROADMAPID:(\\w+)@');
 const ROADMAP_SLUG_REGEX = new RegExp(/@ROADMAPSLUG:([\w-]+)@/);
 
+// 节点详细  节点id 节点类型  节点名称  父亲名称
 export type RoadmapNodeDetails = {
   nodeId: string;
   nodeType: string;
-  targetGroup?: SVGElement;
+  targetGroup?: SVGElement;   // svg图像元素
   nodeTitle?: string;
   parentTitle?: string;
 };
 
+// 获取节点详细信息
 export function getNodeDetails(
   svgElement: SVGElement,
 ): RoadmapNodeDetails | null {
+  // 尝试查找 svgElement 最近的 <g> 元素 如果找到了，将其赋值给 targetGroup
   const targetGroup = (svgElement?.closest('g') as SVGElement) || {};
 
   const nodeId = targetGroup?.dataset?.nodeId;
@@ -130,7 +133,10 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
   );
   const isKeyOnly = IS_KEY_ONLY_ROADMAP_GENERATION;
 
+  // 渲染ai生成的路线图
   const renderRoadmap = async (roadmap: string) => {
+    // 从text当中生成AIroadmap  解析形成edges和node节点
+    // TODO text markdown文件 解析为包含nodes和edges的类
     const { nodes, edges } = generateAIRoadmapFromText(roadmap);
     const svg = await renderFlowJSON({ nodes, edges });
     if (roadmapContainerRef?.current) {
@@ -138,6 +144,7 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
     }
   };
 
+  // 团队路线图
   const loadTermRoadmap = async (term: string) => {
     setIsLoading(true);
     setHasSubmitted(true);
@@ -245,14 +252,13 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
     loadTermRoadmap(roadmapTerm).finally(() => null);
   };
 
+  // 保存AI路线图
   const saveAIRoadmap = async () => {
     if (!isLoggedIn()) {
       showLoginPopup();
       return;
     }
-
     pageProgressMessage.set('Redirecting to Editor');
-
     const { nodes, edges } = generateAIRoadmapFromText(generatedRoadmapContent);
 
     const { response, error } = await httpPost<{
@@ -294,6 +300,7 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
     };
   };
 
+  // 下载AI路线图
   const downloadGeneratedRoadmapContent = async () => {
     if (!isLoggedIn()) {
       showLoginPopup();
@@ -710,8 +717,8 @@ export function GenerateRoadmap(props: GenerateRoadmapProps) {
                     }}
                     disabled={isLoading}
                   >
-                    <PenSquare size={15} />
-                    Edit in Editor
+                    {/* <PenSquare size={15} />
+                    Edit in Editor */}
                   </button>
                 </div>
               </div>

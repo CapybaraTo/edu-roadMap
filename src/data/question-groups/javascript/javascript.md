@@ -18,8 +18,8 @@ sitemap:
   priority: 1
   changefreq: 'monthly'
 questions:
-  - question: What is JavaScript?
-    answer: JavaScript (often abbreviated as JS) is a high-level, versatile, and widely-used programming language primarily known for its role in web development. It enables interactive and dynamic behavior on websites.
+  - question: JavaScript是什么?
+    answer: JavaScript（通常缩写为JS）是一种高级、通用、广泛使用的编程语言，主要以其在web开发中的作用而闻名。它使网站上的互动和动态行为成为可能。.
     topics:
       - '核心'
       - '入门'

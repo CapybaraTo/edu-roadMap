@@ -100,7 +100,9 @@ export function clearMigratedRoadmapProgress(
     'vue',
     'javascript',
     'nodejs',
-    'python'
+    'python',
+    'test',    //
+    'ai-test'   //
   ];
 
   if (!migratedRoadmaps.includes(resourceId)) {

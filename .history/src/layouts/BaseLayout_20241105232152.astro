@@ -1,0 +1,188 @@
+---
+import Analytics from "../components/Analytics/Analytics.astro"; // 网页数据分析与跟踪
+import LoginPopup from "../components/AuthenticationFlow/LoginPopup.astro"; // 登录弹窗
+import Authenticator from "../components/Authenticator/Authenticator.astro"; // 用户认证
+import { CommandMenu } from "../components/CommandMenu/CommandMenu.tsx"; // 命令菜单  搜索组件
+import Footer from "../components/Footer.astro";
+import Navigation from "../components/Navigation/Navigation.astro"; // 导航栏
+// import OpenSourceBanner from "../components/OpenSourceBanner.astro";  //TODO 横幅
+import { PageProgress } from "../components/PageProgress.tsx"; // 页面加载进度
+import { Toaster } from "../components/Toast.tsx"; //  通知
+import { siteConfig } from "../lib/config.ts"; // Footer部分网站配置，包含标题、描述、关键词等。
+import "../styles/global.css";
+// import { PageVisit } from "../components/PageVisit/PageVisit";  // 页面访问跟踪组件   得联网
+import type { ResourceType } from "../lib/resource-progress"; // 路线图进度配置相关。以及计算完成任务数等
+
+// Props接口定义
+// 定义了组件的属性，包括标题、图片URL、简短标题、重定向URL、描述、关键词、是否禁止索引、规范URL、初始加载消息、永久链接、JSON-LD数据、资源ID和资源类型。
+export interface Props {
+  title: string;
+  ogImageUrl?: string;
+  briefTitle?: string;
+  redirectUrl?: string;
+  description?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+  canonicalUrl?: string;
+  initialLoadingMessage?: string;
+  permalink?: string;
+  jsonLd?: Record<string, unknown>[];
+  resourceId?: string;
+  resourceType?: ResourceType;
+}
+
+// props获取组件属性并为其设置默认值
+const {
+  title = siteConfig.title,
+  briefTitle,
+  description = siteConfig.description,
+  ogImageUrl = "https://localhost:4321/images/og-img.png", // 一个roadmap介绍的图
+  keywords = siteConfig.keywords,
+  noIndex = false,
+  permalink = "",
+  canonicalUrl: givenCanonical = "",
+  jsonLd = [],
+  redirectUrl = "",
+  initialLoadingMessage = "",
+  resourceId,
+  resourceType,
+} = Astro.props;
+
+// TODO
+const currentPageAbsoluteUrl = `https://localhost:4321${permalink}`;
+const canonicalUrl = givenCanonical || currentPageAbsoluteUrl; // 规范URL，优先使用给定的规范URL，如果没有则使用当前页面的URL。
+// commitUrl: GitHub提交URL，用于显示页面内容的最后提交版本。
+const commitUrl = `https://github.com/CapybaraTo/edu-roadMap/commit/${
+  import.meta.env.GITHUB_SHA
+}`;
+
+// e.g. frontend:react or best-practices:frontend-performance
+// Google Analytics的页面标识符
+const gaPageIdentifier = Astro.url.pathname
+  .replace(/^\//, "")
+  .replace(/\/$/, "")
+  .replace(/\//g, ":");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="commit" content={commitUrl} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="GJJ" />
+    <meta name="keywords" content={keywords.join(", ")} />
+    {
+      redirectUrl && (
+        <meta http-equiv="refresh" content={`1;url=${redirectUrl}`} />
+      )
+    }
+    {noIndex && <meta name="robots" content="noindex" />}
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="Content-Language" content="en" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@kamrify" />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image"
+      content={ogImageUrl || "https://localhost:4321/images/og-img.png"}
+    />
+    <meta property="og:image:alt" content="localhost:4321" />
+    <meta property="og:site_name" content="localhost:4321" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentPageAbsoluteUrl} />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="roadmap.sh" />
+    <meta name="application-name" content="roadmap.sh" />
+
+    <meta name="msapplication-TileColor" content="#101010" />
+    <!-- <meta name="theme-color" content="#848a9a" /> -->
+
+    <link rel="manifest" href="/manifest/manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/manifest/icon32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/manifest/icon16.png"
+    />
+    <link
+      rel="shortcut icon"
+      href="/manifest/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="/manifest/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://www.google-analytics.com/" />
+    <link rel="preconnect" href="https://localhost:8999/" />
+
+    <slot name="after-header" />
+    {
+      jsonLd.length > 0 && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd.length === 1 ? jsonLd[0] : jsonLd)}
+        />
+      )
+    }
+  </head>
+
+  <body class="flex min-h-screen flex-col">
+    <!--  页眉 导航 -->
+    <slot name="page-header">
+      <Navigation />
+    </slot>
+
+    <!-- 主内容 -->
+    <slot />
+
+    <!-- 页脚 横幅和配置 -->
+    <slot name="page-footer">
+      <!-- TD横幅 -->
+      <!-- <OpenSourceBanner /> -->
+      <Footer />
+    </slot>
+
+    <!-- 用户认证 -->
+    <Authenticator />
+
+    <!--  登录弹窗-->
+    <slot name="login-popup">
+      <LoginPopup />
+    </slot>
+
+    <!-- 通知 -->
+    <Toaster client:only="react" />
+    <!-- 命令菜单 -->
+    <CommandMenu client:idle />
+    <!-- 页面加载进度滚动条 -->
+    <PageProgress initialMessage={initialLoadingMessage} client:idle />
+
+    <slot name="after-footer" />
+
+    <!-- 页面流量分析组件 -->
+    <Analytics />
+  </body>
+</html>

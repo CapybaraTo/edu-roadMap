@@ -1,6 +1,6 @@
-# What is JavaScript?
+# JavaScript 是什么?
 
-JavaScript, often abbreviated JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. It lets us add interactivity to pages e.g. you might have seen sliders, alerts, click interactions, popups, etc on different websites -- all of that is built using JavaScript. Apart from being used in the browser, it is also used in other non-browser environments as well such as Node.js for writing server-side code in JavaScript, Electron for writing desktop applications, React Native for mobile applications, and so on.
+JavaScript，通常缩写为JS，是一种编程语言，是万维网的核心技术之一，与HTML和CSS并列。它允许我们为页面添加交互性，例如，您可能在不同的网站上看到滑块、警报、点击交互、弹出窗口等，所有这些都是使用JavaScript构建的。除了在浏览器中使用外，它还用于其他非浏览器环境，例如Node.js用于用JavaScript编写服务器端代码，Electron用于编写桌面应用程序，React Native用于移动应用程序等等。
 
 Visit the following resources to learn more:
 

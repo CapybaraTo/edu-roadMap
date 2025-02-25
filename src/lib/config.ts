@@ -39,6 +39,8 @@ export const siteConfig = {
       "react developer",
       "angular developer",
       "vue developer",
+      "test developer",   //
+      "ai-test developer", //
       "node.js developer",
       "javascript developer",
       "python developer",

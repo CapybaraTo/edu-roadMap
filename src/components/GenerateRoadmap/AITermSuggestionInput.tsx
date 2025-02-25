@@ -1,3 +1,4 @@
+// 搜索框输入提示内容
 import {
   type InputHTMLAttributes,
   useEffect,
@@ -95,6 +96,7 @@ export function AITermSuggestionInput(props: AITermSuggestionInputProps) {
     return response;
   };
 
+  // 官方的roadmap
   const loadOfficialRoadmaps = async () => {
     if (officialRoadmaps.length > 0) {
       return officialRoadmaps;

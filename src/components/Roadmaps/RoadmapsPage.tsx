@@ -122,6 +122,18 @@ const groups: GroupType[] = [
         otherGroups: ['Web Development'],
       },
       {
+        title: 'Test',    //
+        link: '/test',
+        type: 'skill',
+        otherGroups: ['Web Development'],
+      },
+      {
+        title: 'AI-test',
+        link: '/ai-test',
+        type: 'skill',
+        otherGroups: ['Web Development'],
+      },
+      {
         title: 'Angular',
         link: '/angular',
         type: 'skill',

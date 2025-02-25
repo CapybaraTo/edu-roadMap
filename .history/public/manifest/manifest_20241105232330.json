@@ -6,7 +6,7 @@
   "display": "standalone",
   "start_url": "https://localhost:4321/",
   "short_name": "Roadmap",
-  "theme_color": "#EDD07E",
+  "theme_color": "#000000",
   "description": "Roadmaps to becoming a Modern Developer – Dungeons",
   "orientation": "any",
   "background_color": "#101010",

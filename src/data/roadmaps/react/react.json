@@ -680,7 +680,7 @@
           "x": "1182",
           "y": "779",
           "properties": {
-            "controlName": "100-hooks:basic-hooks"
+            "controlName": "100-basic-hooks"
           },
           "children": {
             "controls": {
@@ -1327,7 +1327,7 @@
           "x": "279",
           "y": "426",
           "properties": {
-            "controlName": "101-cli-tools:create-react-app"
+            "controlName": "101-create-react-app"
           },
           "children": {
             "controls": {
@@ -1439,7 +1439,7 @@
           "x": "279",
           "y": "377",
           "properties": {
-            "controlName": "100-cli-tools:vite"
+            "controlName": "100-vite"
           },
           "children": {
             "controls": {
@@ -1582,7 +1582,7 @@
           "x": "1164",
           "y": "434",
           "properties": {
-            "controlName": "101-components:functional-components"
+            "controlName": "101-functional-components"
           },
           "children": {
             "controls": {
@@ -1678,7 +1678,7 @@
           "x": "1163",
           "y": "381",
           "properties": {
-            "controlName": "100-components:class-components"
+            "controlName": "100-class-components"
           },
           "children": {
             "controls": {
