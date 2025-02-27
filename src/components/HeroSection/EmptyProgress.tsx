@@ -21,18 +21,18 @@ export function EmptyProgress(props: EmptyProgressProps) {
   } = props;
 
   return (
-    <div className="relative flex min-h-full flex-col items-start justify-center py-6 sm:items-center">
+    <div className="relative flex min-h-full flex-col items-start justify-center py-8 sm:items-center">
       <h2
-        className={'mb-1.5 flex items-center text-lg text-gray-200 sm:text-2xl'}
+        className={'mb-3 flex items-center text-lg font-semibold text-gray-200 sm:text-2xl'}
       >
-        <CheckIcon additionalClasses="mr-2 top-[0.5px] w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
+        <CheckIcon additionalClasses="mr-2 text-purple-400 w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]" />
         {title}
       </h2>
-      <p className={'text-sm text-gray-400 sm:text-base'}>{message}</p>
+      <p className={'mb-6 text-sm leading-relaxed text-gray-300 sm:text-base'}>{message}</p>
 
-      <p className="mt-5">
+      <div className="mt-4">
         <AIAnnouncement />
-      </p>
+      </div>
     </div>
   );
 }

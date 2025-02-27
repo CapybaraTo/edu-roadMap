@@ -4,32 +4,50 @@ import { AIAnnouncement } from "../AIAnnouncement";
 ---
 
 <div
-  class="min-h-auto relative min-h-[192px] border-b border-b-[#1e293c] transition-all sm:min-h-[281px]"
+  class="relative border-b border-b-[#2a3a5a] bg-gradient-to-br from-[#0f1729] via-[#162240] to-[#1e2a4a] transition-all"
 >
-  <div
-    class="container px-5 py-6 pb-14 text-left transition-opacity duration-300 sm:px-0 sm:py-20 sm:text-center"
-    id="hero-text"
-  >
-    <p class="-mt-4 mb-7 sm:-mt-10 sm:mb-4">
-      <AIAnnouncement />
-    </p>
-
-    <h1
-      class="mb-2 bg-gradient-to-b from-amber-50 to-purple-500 bg-clip-text text-2xl font-bold text-transparent sm:mb-4 sm:text-5xl sm:leading-tight"
+  <div class="container mx-auto px-5 py-12 sm:py-20">
+    <!-- Hero Content -->
+    <div
+      class="flex flex-col items-center justify-center text-center transition-opacity duration-300"
+      id="hero-text"
     >
-      roadmap PRO
-    </h1>
+      <!-- AI Announcement -->
+      <!-- <div class="mb-6 sm:mb-8">
+        <AIAnnouncement />
+      </div> -->
 
-    <p class="hidden px-4 text-lg text-gray-400 sm:block">
-      <span class="font-medium text-gray-400">本站</span> is a community effort to
-      create roadmaps, guides and other educational content to help guide developers
-      in picking up a path and guide their learnings.
-    </p>
+      <!-- Main Heading -->
+      <h1
+        class="mb-4 bg-gradient-to-r from-purple-400 via-pink-300 to-amber-200 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:mb-6 sm:text-5xl sm:leading-tight"
+      >
+        roadmap PRO
+      </h1>
 
-    <p class="text-md block px-0 text-gray-400 sm:hidden">
-      Community created roadmaps, guides and articles to help developers grow in
-      their career.
-    </p>
+      <!-- Description - Desktop -->
+      <p class="hidden max-w-2xl text-lg leading-relaxed text-gray-300 sm:block">
+        <span class="font-medium text-gray-200">本站</span> is a community effort to
+        create roadmaps, guides and other educational content to help guide developers
+        in picking up a path and guide their learnings.
+      </p>
+
+      <!-- Description - Mobile -->
+      <p class="mb-8 max-w-md text-md px-0 leading-relaxed text-gray-300 sm:hidden">
+        Community created roadmaps, guides and articles to help developers grow in
+        their career.
+      </p>
+      
+      <!-- Category Pills -->
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/roadmaps" class="rounded-full bg-purple-900/30 px-4 py-2 text-sm font-medium text-purple-200 transition-colors hover:bg-purple-800/40">路线图</a>
+        <a href="/videos" class="rounded-full bg-blue-900/30 px-4 py-2 text-sm font-medium text-blue-200 transition-colors hover:bg-blue-800/40">课程视频</a>
+        <a href="/questions" class="rounded-full bg-green-900/30 px-4 py-2 text-sm font-medium text-green-200 transition-colors hover:bg-green-800/40">测试题</a>
+      </div>
+    </div>
   </div>
-  <FavoriteRoadmaps client:only="react" />
+  
+  <!-- Favorite Roadmaps Section -->
+  <div class="container mx-auto px-5 pb-8">
+    <FavoriteRoadmaps client:only="react" />
+  </div>
 </div>

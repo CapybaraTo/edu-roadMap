@@ -13,8 +13,8 @@ export interface Props extends FeaturedItemType {}
 const { text, url } = Astro.props;
 ---
 
-<a href={url}>
-  <span class="relative z-20 text-slate-400">
+<a href={url} class="relative block min-w-[120px] rounded-lg px-5 py-3 text-center transition-all duration-200 hover:bg-slate-800/50">
+  <span class="relative z-20 font-medium text-slate-300 transition-colors duration-200 hover:text-white">
     {text}
   </span>
 
@@ -33,6 +33,6 @@ const { text, url } = Astro.props;
   <!-- 显示进度条 -->
   <span
     data-progress
-    class="absolute bottom-0 left-0 top-0 z-10 w-0 bg-[#172a3a] transition-[width] duration-300"
+    class="absolute bottom-0 left-0 right-0 top-0 z-10 w-0 rounded-lg bg-gradient-to-r from-blue-900/20 to-purple-900/20 transition-[width] duration-300"
   ></span>
 </a>

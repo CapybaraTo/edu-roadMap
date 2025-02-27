@@ -35,13 +35,14 @@ function HeroRoadmap(props: ProgressRoadmapProps) {
   return (
     <a
       href={url}
-      className="relative flex flex-col overflow-hidden rounded-md border border-slate-800 bg-slate-900 p-3 text-sm text-slate-400 hover:border-slate-600 hover:text-slate-300"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-800 bg-slate-900/80 p-4 text-sm text-slate-400 transition-all duration-200 hover:border-slate-600 hover:bg-slate-800/80 hover:text-slate-300 hover:shadow-md hover:shadow-slate-900/30"
     >
-      <span className="relative z-20">{resourceTitle}</span>
+      <span className="relative z-20 font-medium">{resourceTitle}</span>
 
       <span
-        className="absolute bottom-0 left-0 top-0 z-10 bg-[#172a3a]"
+        className="absolute bottom-0 left-0 top-0 z-10 bg-gradient-to-r from-blue-900/40 to-purple-900/40 transition-all duration-300 group-hover:from-blue-800/40 group-hover:to-purple-800/40"
         style={{ width: `${percentageDone}%` }}
+        data-progress
       ></span>
 
       {allowFavorite && (
@@ -65,15 +66,19 @@ export function HeroTitle(props: ProgressTitleProps) {
   const { isLoading = false, title, icon } = props;
 
   return (
-    <p className="mb-4 flex items-center text-sm text-gray-400">
-      {!isLoading && icon}
+    <h3 className="mb-4 flex items-center gap-2 text-sm font-medium text-gray-300">
+      {!isLoading && (
+        <span className="text-purple-400">
+          {icon}
+        </span>
+      )}
       {isLoading && (
-        <span className="mr-1.5">
+        <span className="text-purple-400">
           <Spinner />
         </span>
       )}
       {title}
-    </p>
+    </h3>
   );
 }
 // 定义了一个类型，表示团队路线图的记录，键是字符串，值是 UserProgressResponse 类型。
@@ -102,9 +107,9 @@ export function HeroRoadmaps(props: ProgressListProps) {
 
   return (
     <div className="relative pb-12 pt-4 sm:pt-7">
-      <p className="mb-7 mt-2 text-sm">
+      <div className="mb-7 mt-2">
         <AIAnnouncement />
-      </p>
+      </div>
       {/* {isCreatingRoadmap && (
         <CreateRoadmapModal
           teamId={creatingRoadmapTeamId}
@@ -117,14 +122,14 @@ export function HeroRoadmaps(props: ProgressListProps) {
       {
         <HeroTitle
           icon={
-            (<CheckIcon additionalClasses="mr-1.5 h-[14px] w-[14px]" />) as any
+            (<CheckIcon additionalClasses="h-[16px] w-[16px]" />) as any
           }
           isLoading={isLoading}
-          title="你的进度和收藏的路线图."
+          title="你的进度和收藏的路线图"
         />
       }
 
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
         {progress.map((resource) => (
           <HeroRoadmap
             key={`${resource.resourceType}-${resource.resourceId}`}
