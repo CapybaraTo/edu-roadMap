@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SkillTreeContainer } from '../components/SkillTree/SkillTreeContainer';
+---
+
+<BaseLayout 
+  title="我的技能树 - roadmap PRO"
+  description="查看和管理你的技能水平，对比目标岗位要求"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-4">我的技能树</h1>
+      <p class="text-gray-500">管理你的技能水平，找到理想的职业发展方向</p>
+    </div>
+
+    <!-- 简历上传区域 -->
+    <div class="rounded-lg p-6 mb-8 bg-gradient-to-r from-blue-900/30 via-purple-900/30 to-blue-900/30 backdrop-blur-md border border-blue-500/20">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">上传简历</h2>
+          <p class="text-gray-600 text-sm">上传你的简历，我们将自动分析你的技能水平</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <label class="relative cursor-pointer">
+            <input type="file" class="hidden" accept=".pdf,.doc,.docx" />
+            <span class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white text-sm font-medium transition-colors">
+              选择文件
+            </span>
+          </label>
+          <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm font-medium transition-colors">
+            开始分析
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 技能树主体内容 -->
+    <SkillTreeContainer client:load />
+  </div>
+</BaseLayout> 

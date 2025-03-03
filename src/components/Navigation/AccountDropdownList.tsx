@@ -68,13 +68,13 @@ export function AccountDropdownList(props: AccountDropdownListProps) {
         </a>
       </li>
       <li className="px-1">
-        <button
+        <a
+          href="/skill-tree"
           className="group flex w-full items-center gap-2 rounded py-2 pl-3 pr-2 text-left text-sm font-medium text-slate-100 hover:bg-slate-700"
-          type="button"
-          // onClick={}
         >
+          <SquareUserRound className="h-4 w-4 stroke-[2px] text-slate-400 group-hover:text-white" />
           我的技能树
-        </button>
+        </a>
       </li>
       <li className="px-1">
         <button
