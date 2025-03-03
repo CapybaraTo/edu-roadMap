@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { JobList } from '../components/Jobs/JobList';
+---
+
+<BaseLayout 
+  title="招聘信息 - roadmap PRO"
+  description="寻找最适合你的开发岗位，查看详细的技能要求和职位描述"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-4">招聘信息</h1>
+      <p class="text-gray-500">发现适合你的开发岗位，了解市场需求和技能要求</p>
+    </div>
+
+    <!-- 筛选器部分 -->
+    <div class="bg-slate-800/50 rounded-lg p-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="relative">
+          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
+            <option value="">工作地点</option>
+            <option value="北京">北京</option>
+            <option value="深圳">深圳</option>
+            <option value="杭州">杭州</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
+            <option value="">薪资范围</option>
+            <option value="30k-50k">30k-50k</option>
+            <option value="35k-65k">35k-65k</option>
+            <option value="40k-70k">40k-70k</option>
+            <option value="45k-80k">45k-80k</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
+            <option value="">工作经验</option>
+            <option value="3-5年">3-5年</option>
+            <option value="3-6年">3-6年</option>
+            <option value="5-7年">5-7年</option>
+            <option value="5-8年">5-8年</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
+            <option value="">技能要求</option>
+            <option value="React">React</option>
+            <option value="Vue.js">Vue.js</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="Node.js">Node.js</option>
+            <option value="Java">Java</option>
+            <option value="Spring Cloud">Spring Cloud</option>
+            <option value="Docker">Docker</option>
+            <option value="Kubernetes">Kubernetes</option>
+            <option value="MySQL">MySQL</option>
+            <option value="Redis">Redis</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 职位列表 -->
+    <JobList client:load />
+  </div>
+</BaseLayout> 
