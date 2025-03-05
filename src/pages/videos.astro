@@ -69,19 +69,19 @@ const searchCourses = async (keyword: string) => {
             <div class="flex flex-col md:flex-row gap-4">
               <!-- 搜索框 -->
               <div class="flex-1">
-                <div class="relative">
+                <form id="searchForm" class="relative" onsubmit="return false;">
                   <input
                     id="searchInput"
                     type="text"
-                    placeholder="搜索课程..."
+                    placeholder="搜索课程... (按回车搜索)"
                     class="w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  <button class="absolute right-3 top-2.5 text-gray-400">
+                  <button type="submit" class="absolute right-3 top-2.5 text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                   </button>
-                </div>
+                </form>
               </div>
 
               <!-- 筛选选项 -->
@@ -174,9 +174,9 @@ const searchCourses = async (keyword: string) => {
 
   <script>
     // 获取DOM元素
-    const searchInput = document.getElementById('searchInput');
-    const courseList = document.getElementById('courseList');
-    let searchTimeout: number;
+    const searchForm = document.getElementById('searchForm') as HTMLFormElement;
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const courseList = document.getElementById('courseList') as HTMLElement;
 
     // 创建课程卡片的HTML
     function createCourseCard(course: any) {
@@ -217,6 +217,8 @@ const searchCourses = async (keyword: string) => {
 
     // 搜索课程
     async function searchCourses(keyword: string) {
+      if (!courseList) return;
+      
       try {
         const loadingDiv = document.createElement('div');
         loadingDiv.className = 'flex justify-center items-center min-h-[400px]';
@@ -237,27 +239,33 @@ const searchCourses = async (keyword: string) => {
       }
     }
 
-    // 添加搜索输入事件监听
-    if (searchInput) {
-      searchInput.addEventListener('input', (e: Event) => {
-        const target = e.target as HTMLInputElement;
-        const keyword = target.value.trim();
+    // 添加表单提交事件监听
+    if (searchForm && searchInput) {
+      // 处理表单提交（回车键）
+      searchForm.addEventListener('submit', (e: Event) => {
+        e.preventDefault();
+        const keyword = searchInput.value.trim();
         
-        // 清除之前的定时器
-        if (searchTimeout) {
-          clearTimeout(searchTimeout);
+        if (keyword) {
+          searchCourses(keyword);
+        } else {
+          // 如果搜索框为空，重新加载所有课程
+          window.location.reload();
         }
-        
-        // 设置新的定时器（防抖）
-        searchTimeout = setTimeout(() => {
+      });
+
+      // 处理搜索按钮点击
+      const searchButton = searchForm.querySelector('button');
+      if (searchButton) {
+        searchButton.addEventListener('click', () => {
+          const keyword = searchInput.value.trim();
           if (keyword) {
             searchCourses(keyword);
           } else {
-            // 如果搜索框为空，重新加载所有课程
             window.location.reload();
           }
-        }, 300) as unknown as number;
-      });
+        });
+      }
     }
   </script>
 </Layout> 
