@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import type { Course, Category, PageResponse } from '../types/video';
 
+// 获取URL中的搜索关键词
+const keyword = Astro.url.searchParams.get('keyword') || '';
+
 // 默认数据
 const defaultCourses: Course[] = [];
 let courses = defaultCourses;
@@ -9,8 +12,13 @@ let error = '';
 let isLoading = true;
 
 try {
+  // 根据是否有关键词决定使用哪个API endpoint
+  const apiUrl = keyword 
+    ? `http://localhost:8999/api/videos/courses?page=0&size=6&keyword=${encodeURIComponent(keyword)}`
+    : 'http://localhost:8999/api/videos/courses?page=0&size=6';
+
   // 从后端API获取数据
-  const coursesResponse = await fetch('http://localhost:8999/api/videos/courses?page=0&size=6');
+  const coursesResponse = await fetch(apiUrl);
 
   if (!coursesResponse.ok) {
     throw new Error('API请求失败');
@@ -75,6 +83,7 @@ const searchCourses = async (keyword: string) => {
                     type="text"
                     placeholder="搜索课程... (按回车搜索)"
                     class="w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={keyword || ''}
                   />
                   <button type="submit" class="absolute right-3 top-2.5 text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -226,6 +235,12 @@ const searchCourses = async (keyword: string) => {
         courseList.innerHTML = '';
         courseList.appendChild(loadingDiv);
 
+        // 更新URL，但不重新加载页面
+        const newUrl = keyword 
+          ? `${window.location.pathname}?keyword=${encodeURIComponent(keyword)}`
+          : window.location.pathname;
+        window.history.pushState({}, '', newUrl);
+
         const response = await fetch(`http://localhost:8999/api/videos/courses?page=0&size=6&keyword=${encodeURIComponent(keyword)}`);
         if (!response.ok) {
           throw new Error('搜索请求失败');
@@ -249,8 +264,8 @@ const searchCourses = async (keyword: string) => {
         if (keyword) {
           searchCourses(keyword);
         } else {
-          // 如果搜索框为空，重新加载所有课程
-          window.location.reload();
+          // 如果搜索框为空，更新URL并重新加载页面
+          window.location.href = window.location.pathname;
         }
       });
 
@@ -262,7 +277,7 @@ const searchCourses = async (keyword: string) => {
           if (keyword) {
             searchCourses(keyword);
           } else {
-            window.location.reload();
+            window.location.href = window.location.pathname;
           }
         });
       }

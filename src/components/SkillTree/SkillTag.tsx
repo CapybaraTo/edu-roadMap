@@ -17,8 +17,14 @@ const LEVEL_LABELS = {
 
 export const SkillTag: React.FC<SkillTagProps> = ({ name, level, showLevel = true, needsImprovement = false }) => {
   const colors = LEVEL_COLORS[level];
+  
+  const handleViewCourses = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = `/videos?keyword=${encodeURIComponent(name)}`;
+  };
+
   return (
-    <div className="relative inline-flex">
+    <div className="relative inline-flex group">
       <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 ${colors.bg} ${colors.text} border ${colors.border} text-sm font-medium ${needsImprovement ? 'ring-2 ring-amber-400 ring-offset-2 ring-offset-slate-800' : ''}`}>
         {name}
         {showLevel && (
@@ -33,6 +39,14 @@ export const SkillTag: React.FC<SkillTagProps> = ({ name, level, showLevel = tru
           ↑
         </span>
       )}
+      
+      {/* 查看相关课程按钮 */}
+      <button
+        onClick={handleViewCourses}
+        className="absolute left-full ml-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs text-blue-400 hover:text-blue-300 whitespace-nowrap"
+      >
+        查看相关课程 →
+      </button>
     </div>
   );
 }; 

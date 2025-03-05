@@ -25,6 +25,10 @@ export const SkillImprovement: React.FC<SkillImprovementProps> = ({ personalSkil
     return targetSkills.filter(ts => !personalSkills.find(ps => ps.name === ts.name));
   };
 
+  const handleViewCourses = (skillName: string) => {
+    window.location.href = `/videos?keyword=${encodeURIComponent(skillName)}`;
+  };
+
   const missingSkills = getMissingSkills();
   const skillsToImprove = personalSkills.filter(getImprovementNeeded);
 
@@ -62,12 +66,20 @@ export const SkillImprovement: React.FC<SkillImprovementProps> = ({ personalSkil
                         建议：通过实践项目和深入学习，提升{skill.name}技能水平
                       </p>
                     </div>
-                    <a 
-                      href={`/${skill.name.toLowerCase()}`}
-                      className="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 rounded-md text-sm transition-colors"
-                    >
-                      查看学习路线
-                    </a>
+                    <div className="flex gap-2">
+                      <a 
+                        href={`/${skill.name.toLowerCase()}`}
+                        className="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 rounded-md text-sm transition-colors whitespace-nowrap"
+                      >
+                        查看学习路线
+                      </a>
+                      <button
+                        onClick={() => handleViewCourses(skill.name)}
+                        className="px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 rounded-md text-sm transition-colors whitespace-nowrap"
+                      >
+                        查看相关课程
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -90,12 +102,20 @@ export const SkillImprovement: React.FC<SkillImprovementProps> = ({ personalSkil
                       建议：从基础开始学习{skill.name}，循序渐进提升水平
                     </p>
                   </div>
-                  <a 
-                    href={`/${skill.name.toLowerCase()}`}
-                    className="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 rounded-md text-sm transition-colors"
-                  >
-                    查看学习路线
-                  </a>
+                  <div className="flex gap-2">
+                    <a 
+                      href={`/${skill.name.toLowerCase()}`}
+                      className="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 rounded-md text-sm transition-colors whitespace-nowrap"
+                    >
+                      查看学习路线
+                    </a>
+                    <button
+                      onClick={() => handleViewCourses(skill.name)}
+                      className="px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 rounded-md text-sm transition-colors whitespace-nowrap"
+                    >
+                      查看相关课程
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
