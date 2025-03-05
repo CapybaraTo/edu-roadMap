@@ -3,41 +3,45 @@ import Layout from '../layouts/Layout.astro';
 import type { Course, Category, PageResponse } from '../types/video';
 
 // 默认数据
-const defaultCategories: Category[] = [];
 const defaultCourses: Course[] = [];
-
-let categories = defaultCategories;
 let courses = defaultCourses;
 let error = '';
 let isLoading = true;
 
 try {
   // 从后端API获取数据
-  const [coursesResponse, categoriesResponse] = await Promise.all([
-    fetch('http://localhost:8999/api/videos/courses?page=0&size=6'),
-    fetch('http://localhost:8999/api/videos/categories')
-  ]);
+  const coursesResponse = await fetch('http://localhost:8999/api/videos/courses?page=0&size=6');
 
-  if (!coursesResponse.ok || !categoriesResponse.ok) {
+  if (!coursesResponse.ok) {
     throw new Error('API请求失败');
   }
 
   const coursesData = await coursesResponse.json();
-  const categoriesData = await categoriesResponse.json();
-
-  if (coursesData && Array.isArray(coursesData.content)) {
-    courses = coursesData.content;
-  }
-
-  if (categoriesData && Array.isArray(categoriesData)) {
-    categories = categoriesData;
-  }
+  courses = coursesData.content;
 } catch (e) {
   console.error('Failed to fetch data:', e);
   error = e instanceof Error ? e.message : '加载数据失败';
 } finally {
   isLoading = false;
 }
+
+// 搜索函数
+const searchCourses = async (keyword: string) => {
+  try {
+    isLoading = true;
+    const response = await fetch(`http://localhost:8999/api/videos/courses?page=0&size=6&keyword=${encodeURIComponent(keyword)}`);
+    if (!response.ok) {
+      throw new Error('搜索请求失败');
+    }
+    const data = await response.json();
+    courses = data.content;
+  } catch (e) {
+    console.error('Search failed:', e);
+    error = e instanceof Error ? e.message : '搜索失败';
+  } finally {
+    isLoading = false;
+  }
+};
 ---
 
 <Layout title="视频课程 | AI Roadmaps" description="探索我们的视频课程，提升您的技能">
@@ -67,6 +71,7 @@ try {
               <div class="flex-1">
                 <div class="relative">
                   <input
+                    id="searchInput"
                     type="text"
                     placeholder="搜索课程..."
                     class="w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -83,9 +88,11 @@ try {
               <div class="flex gap-3">
                 <select class="bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="">所有分类</option>
-                  {categories.map((category) => (
-                    <option value={category.id}>{category.name}</option>
-                  ))}
+                  <option value="frontend">前端开发</option>
+                  <option value="backend">后端开发</option>
+                  <option value="devops">DevOps</option>
+                  <option value="ai">人工智能</option>
+                  <option value="data">数据分析</option>
                 </select>
                 <select class="bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="">难度等级</option>
@@ -97,18 +104,8 @@ try {
             </div>
           </div>
 
-          <!-- 热门分类标签 -->
-          <div class="flex flex-wrap gap-2 mb-8">
-            <span class="text-gray-800 mr-2">热门分类:</span>
-            {categories.slice(0, 5).map((category) => (
-              <a href={`#${category.id}`} class="bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm transition-colors">
-                {category.name}
-              </a>
-            ))}
-          </div>
-
           <!-- 课程列表 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="courseList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
               <div class="bg-white rounded-lg overflow-hidden transition-transform hover:scale-[1.02] border border-gray-200 hover:shadow-lg">
                 <div class="relative">
@@ -174,4 +171,93 @@ try {
       )}
     </div>
   </div>
+
+  <script>
+    // 获取DOM元素
+    const searchInput = document.getElementById('searchInput');
+    const courseList = document.getElementById('courseList');
+    let searchTimeout: number;
+
+    // 创建课程卡片的HTML
+    function createCourseCard(course: any) {
+      return `
+        <div class="bg-white rounded-lg overflow-hidden transition-transform hover:scale-[1.02] border border-gray-200 hover:shadow-lg">
+          <div class="relative">
+            <img src="${course.coverImage || "https://via.placeholder.com/400x225"}" alt="${course.title}" class="w-full h-48 object-cover" />
+            ${course.isHot ? '<span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">热门</span>' : ''}
+            ${course.isNew ? '<span class="absolute top-3 right-3 bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">新课</span>' : ''}
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs">${course.category}</span>
+              <div class="flex items-center">
+                <span class="text-yellow-400 mr-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </span>
+                <span class="text-gray-600 text-sm">${course.rating}</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">${course.title}</h3>
+            <p class="text-gray-600 text-sm mb-4 line-clamp-2">${course.description}</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://via.placeholder.com/40" alt="讲师头像" class="w-8 h-8 rounded-full mr-2" />
+                <span class="text-gray-600 text-sm">讲师ID: ${course.instructorId}</span>
+              </div>
+              <div class="text-gray-600 text-sm">
+                <span>${course.lessonsCount}课时</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 搜索课程
+    async function searchCourses(keyword: string) {
+      try {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'flex justify-center items-center min-h-[400px]';
+        loadingDiv.innerHTML = '<div class="text-gray-800">加载中...</div>';
+        courseList.innerHTML = '';
+        courseList.appendChild(loadingDiv);
+
+        const response = await fetch(`http://localhost:8999/api/videos/courses?page=0&size=6&keyword=${encodeURIComponent(keyword)}`);
+        if (!response.ok) {
+          throw new Error('搜索请求失败');
+        }
+        const data = await response.json();
+        
+        courseList.innerHTML = data.content.map((course: any) => createCourseCard(course)).join('');
+      } catch (e) {
+        console.error('Search failed:', e);
+        courseList.innerHTML = '<div class="flex justify-center items-center min-h-[400px]"><div class="text-red-500">搜索失败</div></div>';
+      }
+    }
+
+    // 添加搜索输入事件监听
+    if (searchInput) {
+      searchInput.addEventListener('input', (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        const keyword = target.value.trim();
+        
+        // 清除之前的定时器
+        if (searchTimeout) {
+          clearTimeout(searchTimeout);
+        }
+        
+        // 设置新的定时器（防抖）
+        searchTimeout = setTimeout(() => {
+          if (keyword) {
+            searchCourses(keyword);
+          } else {
+            // 如果搜索框为空，重新加载所有课程
+            window.location.reload();
+          }
+        }, 300) as unknown as number;
+      });
+    }
+  </script>
 </Layout> 
