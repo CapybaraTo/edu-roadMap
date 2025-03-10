@@ -8,59 +8,79 @@ import { JobList } from '../components/Jobs/JobList';
   description="寻找最适合你的开发岗位，查看详细的技能要求和职位描述"
 >
   <div class="container mx-auto px-4 py-8">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold mb-4">招聘信息</h1>
-      <p class="text-gray-500">发现适合你的开发岗位，了解市场需求和技能要求</p>
+    <!-- 推荐岗位部分 -->
+    <div class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">推荐岗位</h2>
+          <p class="text-gray-500">基于你的技能树，为你推荐最匹配的职位</p>
+        </div>
+        <a href="/skill-tree" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center gap-1">
+          <span>查看我的技能树</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      <JobList isRecommended client:load />
     </div>
 
-    <!-- 筛选器部分 -->
-    <div class="bg-slate-800/50 rounded-lg p-4 mb-6">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="relative">
-          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
-            <option value="">工作地点</option>
-            <option value="北京">北京</option>
-            <option value="深圳">深圳</option>
-            <option value="杭州">杭州</option>
-          </select>
-        </div>
-        <div class="relative">
-          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
-            <option value="">薪资范围</option>
-            <option value="30k-50k">30k-50k</option>
-            <option value="35k-65k">35k-65k</option>
-            <option value="40k-70k">40k-70k</option>
-            <option value="45k-80k">45k-80k</option>
-          </select>
-        </div>
-        <div class="relative">
-          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
-            <option value="">工作经验</option>
-            <option value="3-5年">3-5年</option>
-            <option value="3-6年">3-6年</option>
-            <option value="5-7年">5-7年</option>
-            <option value="5-8年">5-8年</option>
-          </select>
-        </div>
-        <div class="relative">
-          <select class="w-full bg-slate-700 text-gray-200 rounded-md px-3 py-2 appearance-none cursor-pointer">
-            <option value="">技能要求</option>
-            <option value="React">React</option>
-            <option value="Vue.js">Vue.js</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Node.js">Node.js</option>
-            <option value="Java">Java</option>
-            <option value="Spring Cloud">Spring Cloud</option>
-            <option value="Docker">Docker</option>
-            <option value="Kubernetes">Kubernetes</option>
-            <option value="MySQL">MySQL</option>
-            <option value="Redis">Redis</option>
-          </select>
+    <!-- 全部岗位部分 -->
+    <div>
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold mb-2">全部岗位</h2>
+        <p class="text-gray-500">发现更多开发岗位，了解市场需求和技能要求</p>
+      </div>
+
+      <!-- 筛选器部分 -->
+      <div class="bg-gradient-to-r from-indigo-50 via-blue-50 to-blue-100 rounded-lg p-4 mb-6 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="relative">
+            <select class="w-full bg-white text-gray-700 rounded-md px-3 py-2 appearance-none cursor-pointer border border-gray-200 hover:border-gray-300 transition-colors">
+              <option value="">工作地点</option>
+              <option value="北京">北京</option>
+              <option value="深圳">深圳</option>
+              <option value="杭州">杭州</option>
+            </select>
+          </div>
+          <div class="relative">
+            <select class="w-full bg-white text-gray-700 rounded-md px-3 py-2 appearance-none cursor-pointer border border-gray-200 hover:border-gray-300 transition-colors">
+              <option value="">薪资范围</option>
+              <option value="30k-50k">30k-50k</option>
+              <option value="35k-65k">35k-65k</option>
+              <option value="40k-70k">40k-70k</option>
+              <option value="45k-80k">45k-80k</option>
+            </select>
+          </div>
+          <div class="relative">
+            <select class="w-full bg-white text-gray-700 rounded-md px-3 py-2 appearance-none cursor-pointer border border-gray-200 hover:border-gray-300 transition-colors">
+              <option value="">工作经验</option>
+              <option value="3-5年">3-5年</option>
+              <option value="3-6年">3-6年</option>
+              <option value="5-7年">5-7年</option>
+              <option value="5-8年">5-8年</option>
+            </select>
+          </div>
+          <div class="relative">
+            <select class="w-full bg-white text-gray-700 rounded-md px-3 py-2 appearance-none cursor-pointer border border-gray-200 hover:border-gray-300 transition-colors">
+              <option value="">技能要求</option>
+              <option value="React">React</option>
+              <option value="Vue.js">Vue.js</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Node.js">Node.js</option>
+              <option value="Java">Java</option>
+              <option value="Spring Cloud">Spring Cloud</option>
+              <option value="Docker">Docker</option>
+              <option value="Kubernetes">Kubernetes</option>
+              <option value="MySQL">MySQL</option>
+              <option value="Redis">Redis</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 职位列表 -->
-    <JobList client:load />
+      <!-- 职位列表 -->
+      <JobList client:load />
+    </div>
   </div>
 </BaseLayout> 

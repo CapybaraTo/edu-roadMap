@@ -23,41 +23,45 @@ const questionGuides = (await getAllQuestionGroups()).filter(
   description={"Community driven roadmaps, articles and guides for developers to grow in their career."}
   permalink={"/"}
 >
-  <div class="bg-gradient-to-b from-[#0f1729] via-[#162240] to-[#1e2a4a]">
+  <div class="bg-white">
     <HeroSection />
 
-    <!-- 路线图目录 -->
-    <FeaturedItems
-      heading="Skill based Roadmaps"
-      featuredItems={skillRoadmaps
-        .filter((roadmapItem) => !roadmapItem.frontmatter.isHidden)
-        .map((roadmapItem) => ({
-          text:
-            roadmapItem.frontmatter.briefTitle === "Go"
-              ? "Go Roadmap"
-              : roadmapItem.frontmatter.briefTitle,
-          url: `/${roadmapItem.id}`,
+    <div class="border-t border-slate-100">
+      <!-- 路线图目录 -->
+      <FeaturedItems
+        heading="Skill based Roadmaps"
+        featuredItems={skillRoadmaps
+          .filter((roadmapItem) => !roadmapItem.frontmatter.isHidden)
+          .map((roadmapItem) => ({
+            text:
+              roadmapItem.frontmatter.briefTitle === "Go"
+                ? "Go Roadmap"
+                : roadmapItem.frontmatter.briefTitle,
+            url: `/${roadmapItem.id}`,
+          }))}
+      />
+
+      <!-- 最佳实践模块 -->
+      <!-- <FeaturedItems
+        heading="Best Practices"
+        featuredItems={bestPractices.map((bestPractice) => ({
+          text: bestPractice.frontmatter.briefTitle,
+          url: `/best-practices/${bestPractice.id}`,
+          isNew: bestPractice.frontmatter.isNew,
+          isUpcoming: bestPractice.frontmatter.isUpcoming,
         }))}
-    />
+      /> -->
 
-    <!-- 最佳实践模块 -->
-    <!-- <FeaturedItems
-      heading="Best Practices"
-      featuredItems={bestPractices.map((bestPractice) => ({
-        text: bestPractice.frontmatter.briefTitle,
-        url: `/best-practices/${bestPractice.id}`,
-        isNew: bestPractice.frontmatter.isNew,
-        isUpcoming: bestPractice.frontmatter.isUpcoming,
-      }))}
-    /> -->
-
-    <!-- 问题模块 -->
-    <FeaturedItems
-      heading="Questions"
-      featuredItems={questionGroups.map((questionGroup) => ({
-        text: questionGroup.frontmatter.briefTitle,
-        url: `/questions/${questionGroup.id}`,
-      }))}
-    />
+      <!-- 问题模块 -->
+      <div class="border-t border-slate-100">
+        <FeaturedItems
+          heading="Questions"
+          featuredItems={questionGroups.map((questionGroup) => ({
+            text: questionGroup.frontmatter.briefTitle,
+            url: `/questions/${questionGroup.id}`,
+          }))}
+        />
+      </div>
+    </div>
   </div>
 </BaseLayout>

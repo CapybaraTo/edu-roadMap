@@ -12,22 +12,21 @@ export interface Props {
 const { featuredItems, heading } = Astro.props;
 ---
 
-<div class="relative border-b border-b-[#2a3a5a] py-12 sm:py-16">
-  <div class="container">
-    <h2
-      class="text-md font-medium absolute -top-[17px] flex rounded-lg border border-[#2a3a5a] bg-[#162240] px-4 py-1.5 text-slate-300 sm:left-1/2 sm:-translate-x-1/2"
-    >
-      {heading}
-    </h2>
+<div class="container py-8">
+  <div class="mb-5">
+    <h2 class="text-xl font-bold text-gray-900 sm:text-2xl">{heading}</h2>
+  </div>
 
-    <ul class="mx-auto grid max-w-4xl grid-cols-1 gap-4 text-center sm:grid-cols-2 md:grid-cols-3">
-      {
-        featuredItems.map((featuredItem) => (
-          <li class="flex justify-center">
-            <FeaturedItem text={featuredItem.text} url={featuredItem.url} />
-          </li>
-        ))
-      }
-    </ul>
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+    {
+      featuredItems.map((featuredItem) => (
+        <a
+          href={featuredItem.url}
+          class="group flex items-center rounded-lg border border-gray-200 bg-gray-50 p-3 text-[15px] font-medium text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-100"
+        >
+          {featuredItem.text}
+        </a>
+      ))
+    }
   </div>
 </div>

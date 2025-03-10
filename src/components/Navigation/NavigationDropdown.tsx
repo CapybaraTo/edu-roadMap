@@ -39,9 +39,9 @@ const links = [
   //   Icon: BookOpenText,
   // },
   {
-    link: 'https://youtube.com/@roadmapsh',
-    label: 'Videos',
-    description: 'Animated and interactive content',
+    link: '/videos',
+    label: '课程视频',
+    description: '查看视频课程',
     Icon: Video,
     isExternal: true,
   },
@@ -59,14 +59,14 @@ export function NavigationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
 
   useOutsideClick(dropdownRef, () => {
-    setIsOpen(false);    // 点击外部 就关闭
+    setIsOpen(false);
   });
 
   return (
     <div className="relative flex items-center" ref={dropdownRef}>
       <button
-        className={cn('text-gray-400 hover:text-white', {
-          'text-white': isOpen,
+        className={cn('text-slate-500 hover:text-slate-700', {
+          'text-slate-700': isOpen,
         })}
         onClick={() => setIsOpen(true)}
         onMouseOver={() => setIsOpen(true)}
@@ -76,7 +76,7 @@ export function NavigationDropdown() {
       </button>
       <div
         className={cn(
-          'pointer-events-none invisible absolute left-0 top-full z-[999] mt-2 w-48 min-w-[320px] -translate-y-1 rounded-lg bg-slate-800 py-2 opacity-0 shadow-xl transition-all duration-100',
+          'pointer-events-none invisible absolute left-0 top-full z-[999] mt-2 w-48 min-w-[320px] -translate-y-1 rounded-lg bg-white py-2 opacity-0 shadow-lg transition-all duration-100 border border-slate-200',
           {
             'pointer-events-auto visible translate-y-2.5 opacity-100': isOpen,
           },
@@ -88,16 +88,16 @@ export function NavigationDropdown() {
             target={link.isExternal ? '_blank' : undefined}
             rel={link.isExternal ? 'noopener noreferrer' : undefined}
             key={link.link}
-            className="group flex items-center gap-3 px-4 py-2.5 text-gray-400 transition-colors hover:bg-slate-700"
+            className="group flex items-center gap-3 px-4 py-2.5 text-slate-500 transition-colors hover:bg-slate-50"
           >
-            <span className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-slate-600 transition-colors group-hover:bg-slate-500 group-hover:text-slate-100">
+            <span className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-slate-100 transition-colors group-hover:bg-slate-200 group-hover:text-slate-700">
               <link.Icon className="inline-block h-5 w-5" />
             </span>
             <span className="flex flex-col">
-              <span className="font-medium text-slate-300 transition-colors group-hover:text-slate-100">
+              <span className="font-medium text-slate-700 transition-colors group-hover:text-slate-900">
                 {link.label}
               </span>
-              <span className="text-sm">{link.description}</span>
+              <span className="text-sm text-slate-500">{link.description}</span>
             </span>
           </a>
         ))}

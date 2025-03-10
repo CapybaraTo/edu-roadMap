@@ -89,6 +89,20 @@ export const SkillTreeView: React.FC<SkillTreeViewProps> = ({ type, onSkillsChan
           {type === 'personal' ? '请上传简历以分析你的技能水平' : '请选择目标岗位查看要求'}
         </div>
       )}
+
+      {type === 'target' && skills.length > 0 && (
+        <div className="flex justify-center mt-8">
+          <a
+            href="/learning-path"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+          >
+            <span>生成学习路径图</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      )}
     </div>
   );
 }; 

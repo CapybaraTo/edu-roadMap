@@ -5,8 +5,8 @@ svg text tspan {
 }
 
 code {
-  background: #1e1e3f;
-  color: #9efeff;
+  background: #f8fafc;
+  color: #1e293b;
   padding: 3px 5px;
   font-size: 14px;
   border-radius: 3px;
@@ -17,71 +17,73 @@ svg .clickable-group {
 }
 
 svg .clickable-group:hover > [fill='rgb(65,53,214)'] {
-  fill: #232381;
-  stroke: #232381;
+  fill: #4338ca;
+  stroke: #4338ca;
 }
 
 svg .clickable-group:hover > [fill='rgb(255,255,0)'] {
-  fill: #d6d700;
+  fill: #fbbf24;
 }
 
 svg .clickable-group:hover > [fill='rgb(255,229,153)'] {
-  fill: #f3c950;
+  fill: #fcd34d;
 }
 /* 步骤节点黄色背景 */
 svg .clickable-group:hover > [stroke='rgb(255,229,153)'] {
-  stroke: #f3c950;
+  stroke: #fcd34d;
 }
 
 svg .clickable-group:hover > [fill='rgb(153,153,153)'] {
-  fill: #646464;
+  fill: #9ca3af;
 }
 
 svg .clickable-group:hover > [fill='rgb(255,255,255)'] {
-  fill: #d7d7d7;
+  fill: #f3f4f6;
 }
 
 svg .clickable-group:hover > [fill='rgb(255,255,221)'] {
-  fill: #e5e5be;
+  fill: #fef3c7;
 }
 
 svg .clickable-group:hover > [fill='rgb(255,217,102)'] {
-  fill: #d9b443;
+  fill: #fbbf24;
 }
 
 svg .done rect {
-  fill: #cbcbcb !important;
+  fill: #e5e7eb !important;
 }
 
 svg .done rect[stroke='rgb(255,229,153)'] {
-  stroke: #cbcbcb !important;
+  stroke: #e5e7eb !important;
 }
 
 svg .done text,
 svg .skipped text {
   text-decoration: line-through;
+  fill: #6b7280;
 }
 
 svg .learning rect {
-  fill: #dad1fd !important;
+  fill: #e0e7ff !important;
 }
 
 svg .skipped rect {
-  fill: #496b69 !important;
+  fill: #e2e8f0 !important;
 }
 
 svg .learning rect[fill='rgb(51,51,51)'] + text,
 svg .done rect[fill='rgb(51,51,51)'] + text {
-  fill: black !important;
+  fill: #1f2937 !important;
 }
 
 svg .learning text {
   text-decoration: underline;
+  fill: #4338ca;
 }
 
 svg .clickable-group.done[data-group-id^='check:'] rect {
-  fill: gray !important;
-  stroke: gray !important;
+  fill: #9ca3af !important;
+  stroke: #9ca3af !important;
 }
 
 .clickable-group rect {
@@ -89,18 +91,23 @@ svg .clickable-group.done[data-group-id^='check:'] rect {
 }
 
 svg .removed rect {
-  fill: #fdfdfd !important;
-  stroke: #c4c4c4 !important;
+  fill: #f8fafc !important;
+  stroke: #e2e8f0 !important;
 }
 
 svg .removed text {
-  fill: #9c9c9c !important;
+  fill: #9ca3af !important;
 }
 
 svg .removed g,
 svg .removed circle,
 svg .removed path {
-  opacity: 0;
+  opacity: 0.5;
+}
+
+/* 确保所有文字在浅色背景下可见 */
+svg text {
+  fill: #1f2937;
 }
 
 /************************************

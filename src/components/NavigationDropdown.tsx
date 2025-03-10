@@ -27,8 +27,8 @@ const links = [
   // },
   {
     link: '/questions',
-    label: 'Questions',
-    description: 'Test and Practice your knowledge',
+    label: '测试题',
+    description: '测试并巩固你的知识掌握',
     Icon: FileQuestion,
   },
   // {
@@ -38,9 +38,9 @@ const links = [
   //   Icon: BookOpenText,
   // },
   {
-    link: 'https://youtube.com/@roadmapsh',
-    label: 'Videos',
-    description: 'Animated and interactive content',
+    link: '/videos',
+    label: '课程视频',
+    description: '查看视频课程',
     Icon: Video,
     isExternal: true,
   },

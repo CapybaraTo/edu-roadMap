@@ -6,6 +6,12 @@ export interface Category {
     sortOrder: number;
 }
 
+export interface TargetSkill {
+    name: string;
+    currentLevel: 'beginner' | 'intermediate' | 'advanced';
+    targetLevel: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+}
+
 export interface Course {
     courseId: string;
     title: string;
@@ -23,6 +29,7 @@ export interface Course {
     status: 'draft' | 'published' | 'archived';
     createdAt: string;
     updatedAt: string;
+    targetSkill?: TargetSkill;
 }
 
 export interface PageResponse<T> {
