@@ -7,17 +7,23 @@ const LearningPathView: React.FC = () => {
   useEffect(() => {
     mermaid.initialize({
       startOnLoad: true,
-      theme: 'dark',
+      theme: 'base',
       securityLevel: 'loose',
       themeVariables: {
         fontFamily: 'system-ui, sans-serif',
         fontSize: '14px',
-        primaryColor: '#3B82F6',
-        primaryTextColor: '#FFFFFF',
-        primaryBorderColor: '#60A5FA',
-        lineColor: '#60A5FA',
-        secondaryColor: '#1E40AF',
-        tertiaryColor: '#DBEAFE',
+        primaryColor: '#F3F4F6',
+        primaryTextColor: '#111827',
+        primaryBorderColor: '#E5E7EB',
+        lineColor: '#6366F1',
+        secondaryColor: '#F9FAFB',
+        tertiaryColor: '#F3F4F6',
+        mainBkg: '#FFFFFF',
+        nodeBorder: '#E5E7EB',
+        clusterBkg: '#FFFFFF',
+        titleColor: '#111827',
+        edgeLabelBackground: '#FFFFFF',
+        nodeTextColor: '#111827',
       }
     });
 
@@ -54,38 +60,39 @@ const LearningPathView: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="bg-gray-50 rounded-lg shadow-lg p-6">
       <div className="text-center mb-8">
-        <p className="text-gray-600 mb-4">
+        {/* <h2 className="text-2xl font-bold text-gray-900 mb-2">个性化学习路径图</h2> */}
+        <p className="text-gray-700 mb-4">
           基于你的当前技能水平和目标岗位要求，我们为你生成了个性化的学习路径
         </p>
       </div>
       
-      <div className="min-h-[400px] bg-gray-50 rounded-lg p-4 overflow-auto">
+      <div className="min-h-[400px] bg-white rounded-lg p-4 overflow-auto">
         <div ref={mermaidRef} className="mermaid flex justify-center"></div>
       </div>
       
       <div className="mt-8">
-        <h3 className="text-xl font-semibold mb-4">学习建议</h3>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">学习建议</h3>
         <ul className="space-y-4">
           <li className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-3">1</span>
+            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3">1</span>
             <div>
-              <h4 className="font-medium">专注核心技能</h4>
+              <h4 className="font-medium text-gray-800">专注核心技能</h4>
               <p className="text-gray-600">优先提升与目标岗位要求差距较大的关键技能</p>
             </div>
           </li>
           <li className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-3">2</span>
+            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3">2</span>
             <div>
-              <h4 className="font-medium">循序渐进</h4>
+              <h4 className="font-medium text-gray-800">循序渐进</h4>
               <p className="text-gray-600">按照推荐的学习顺序，确保基础知识扎实</p>
             </div>
           </li>
           <li className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-3">3</span>
+            <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3">3</span>
             <div>
-              <h4 className="font-medium">实践项目</h4>
+              <h4 className="font-medium text-gray-800">实践项目</h4>
               <p className="text-gray-600">通过实际项目来巩固和应用所学知识</p>
             </div>
           </li>
@@ -95,4 +102,4 @@ const LearningPathView: React.FC = () => {
   );
 };
 
-export default LearningPathView; 
+export default LearningPathView;

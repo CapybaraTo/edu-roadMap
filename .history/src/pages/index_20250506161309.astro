@@ -55,7 +55,7 @@ const questionGuides = (await getAllQuestionGroups()).filter(
       <!-- 问题模块 -->
       <div class="border-t border-slate-100">
         <FeaturedItems
-          heading="测试题目"
+          heading="Questions"
           featuredItems={questionGroups.map((questionGroup) => ({
             text: questionGroup.frontmatter.briefTitle,
             url: `/questions/${questionGroup.id}`,

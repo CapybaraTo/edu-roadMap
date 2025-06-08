@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Course, Category, PageResponse } from '../types/video';
 import Footer from "../components/Footer.astro";
 
@@ -167,6 +167,26 @@ const recommendedCourses: Course[] = [
   description={"探索我们的学习课程，提高您的技能"}
   permalink={"/videos"}
 >
+  <!-- 顶部导航栏 -->
+  <nav class="bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            roadmap PRO
+          </a>
+        </div>
+
+        <!-- 导航链接 -->
+        <div class="hidden md:flex items-center space-x-4">
+          <a href="/roadmaps" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50">路线图</a>
+          <a href="/videos" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-600 bg-indigo-50">课程视频</a>
+          <a href="/questions" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50">测试题</a>
+          <a href="/jobs" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-rose-600 hover:bg-rose-50">招聘信息</a>
+        </div>
+    </div>
+  </nav>
 
   <div class="bg-white">
     <div class="container mx-auto px-4 py-12">
@@ -402,6 +422,10 @@ const recommendedCourses: Course[] = [
           </div>
         </>
       )}
+    </div>
+
+    <div slot="page-footer">
+      <Footer />
     </div>
   </div>
 

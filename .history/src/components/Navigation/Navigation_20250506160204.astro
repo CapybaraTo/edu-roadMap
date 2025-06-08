@@ -10,43 +10,64 @@ import { AccountDropdown } from "./AccountDropdown"; // 用户账户的下拉菜
   class="bg-gradient-to-r from-[#f8fafc] via-[#e2e8f0] to-[#cbd5e1] border-b border-slate-200 py-5 text-slate-600 sm:py-8"
 >
   <nav class="container flex items-center justify-between">
-    <!-- 左侧部分：Logo和导航下拉菜单 -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-5">
+      <!-- logo -->
+      <!-- <a
+        class="flex items-center text-lg font-medium text-slate-700"
+        href="/"
+        aria-label="roadmap.sh"
+      > -->
       <a
         href="/"
         class="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
       >
         roadmap PRO
       </a>
+      <!-- <Icon icon="logo" /> -->
+    </div>
+
+    <!-- Desktop navigation items -->
+    <div class="hidden space-x-5 sm:flex sm:items-center">
       <NavigationDropdown client:load />
+      <!-- <a href="/get-started" class="text-gray-400 hover:text-white">
+          从这里开始
+        </a> -->
+      <!-- GPT 路线图 -->
+      <!-- <a href="/ai" class="text-slate-500 hover:text-slate-700"> AI Roadmaps</a> -->
+      <!-- <button
+        data-command-menu
+        style={{ width: "350px", marginTop: "3px" }}
+        class="hidden items-center rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-500 hover:cursor-pointer hover:bg-slate-100 md:flex"
+      >
+        <Icon icon="search" class="h-3 w-3" />
+        <span class="ml-2">搜索</span>
+      </button> -->
     </div>
-
-    <!-- 右侧部分：登录注册按钮 -->
-    <div class="flex items-center gap-4">
-      <div data-guest-required class="hidden">
-        <a href="/login" class="text-slate-500 hover:text-slate-700">登录</a>
-      </div>
-      <div>
-        <AccountDropdown client:only="react" />
-        <a
-          data-guest-required
-          class="flex hidden h-8 w-28 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-blue-400 to-blue-600 px-4 py-2 text-sm font-medium text-white hover:from-blue-500 hover:to-blue-700"
-          href="/signup"
-        >
-          <span>注册</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- 移动端菜单按钮 -->
-    <button
-      class="block cursor-pointer text-slate-500 hover:text-slate-700 sm:hidden"
-      aria-label="Menu"
-      data-show-mobile-nav
-    >
-      <Icon icon="hamburger" />
-    </button>
   </nav>
+
+  <ul class="hidden h-8 w-[172px] items-center justify-end gap-5 sm:flex">
+    <li data-guest-required class="hidden">
+      <a href="/login" class="text-slate-500 hover:text-slate-700">登录</a>
+    </li>
+    <li>
+      <AccountDropdown client:only="react" />
+      <a
+        data-guest-required
+        class="flex hidden h-8 w-28 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-blue-400 to-blue-600 px-4 py-2 text-sm font-medium text-white hover:from-blue-500 hover:to-blue-700"
+        href="/signup"
+      >
+        <span>注册</span>
+      </a>
+    </li>
+  </ul>
+
+  <button
+    class="block cursor-pointer text-slate-500 hover:text-slate-700 sm:hidden"
+    aria-label="Menu"
+    data-show-mobile-nav
+  >
+    <Icon icon="hamburger" />
+  </button>
 
   <div
     class="fixed bottom-0 left-0 right-0 top-0 z-40 flex hidden items-center bg-white"

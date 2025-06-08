@@ -29,7 +29,7 @@ const questionGuides = (await getAllQuestionGroups()).filter(
     <div class="border-t border-slate-100">
       <!-- 路线图目录 -->
       <FeaturedItems
-        heading="基于技能的路线图"
+        heading="Skill based Roadmaps"
         featuredItems={skillRoadmaps
           .filter((roadmapItem) => !roadmapItem.frontmatter.isHidden)
           .map((roadmapItem) => ({
@@ -55,7 +55,7 @@ const questionGuides = (await getAllQuestionGroups()).filter(
       <!-- 问题模块 -->
       <div class="border-t border-slate-100">
         <FeaturedItems
-          heading="测试题目"
+          heading="Questions"
           featuredItems={questionGroups.map((questionGroup) => ({
             text: questionGroup.frontmatter.briefTitle,
             url: `/questions/${questionGroup.id}`,
